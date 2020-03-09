@@ -4,12 +4,18 @@ const router = express.Router();
 const product = [];
 
 router.get('/post',function(req,res){
-    res.send("<html><head><title>Item Page </title></head><body><form action='/post' method='POST'><input type='text' name='list'><button type='submit'>Submit</button></form></body></html>")
+    res.render('add-product.ejs',{pageTitle:'Post Add'});
+});
+router.get('/login',function(req,res){
+    res.render('auth/login.ejs',{pageTitle:'Login'});
+});
+router.get('/signup',function(req,res){
+    res.render('auth/signup.ejs',{pageTitle:'Signup'});
 });
 
 router.post('/post',function(req,res){
-    console.log(req.body.list);
-    product.push({name: req.body.list});
+    console.log(req.body.name);
+    product.push({name: req.body.name, price: req.body.price, description: req.body.description});
     res.redirect('/');
 });
 

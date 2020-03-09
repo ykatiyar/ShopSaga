@@ -1,12 +1,38 @@
+/* css to be followed by all forms */
+/* 
+.product-form {
+    border: 5px;
+} */
+
+/* to be removed */
+.navbar .form-inline {
+    display: none;
+}
+.navbar .navbar-brand {
+    margin-right: 54vw;
+}
+/* end */
+
 .form-control {
     margin: 1rem 0;
+    width: 50%;
+    transform: translateX(50%);
 }
 
 .form-control label,
 .form-control input {
     display: block;
-    width: 100%;
+    width: 90%;
     margin-bottom: 0.25rem;
+}
+main {
+    /* border: 1px solid black; */
+    width: 60vw;
+    margin: auto;
+}
+.product-form .btn {
+    float: right;
+    margin-right: 200px;
 }
 
 .form-control input {

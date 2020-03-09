@@ -1,18 +1,47 @@
+
+<!-- 
 <header class="main-header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light iiita-nav">
-        <a class="navbar-brand brand" href="#"><img class="logo" src="images/logo.png" alt="logo">   ShopSaga</a>
+        <a class="navbar-brand brand" href="/"><img class="logo" src="images/logo.png" alt="logo">   ShopSaga</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <form class="form-inline my-2 my-lg-0 _search_">
+            <form class="form-inline my-2 my-lg-0 search_bar">
                 <input class="form-control mr-sm-2 search_input" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0 search_but" type="submit">Search</button>
             </form>
-            <a class="btn sell-btn" id="bechobtn" href="#">Sell with Us!</a>
-            <a class="btn login-btn" id="logbtn" href="#">Login</a>
-            <a class="btn register-btn" id="regbtn" href="#">Register</a>
-            <a class="btn help-btn" id="helpbtn" href="#">Help</a>
+            <a class="btn side-btn" href="/post">Sell with Us!</a>
+            <a class="btn side-btn" href="#">Login</a>
+            <a class="btn side-btn" href="#">Register</a>
+            <a class="btn side-btn" href="/">Help</a>
         </div>
     </nav>
-</header>
+</header> -->
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/"><img class="logo" src="images/logo.png" alt="logo">ShopSaga</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/post">Sell with Us! <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/signup">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/">Help</a>
+        </li>
+      </ul>
+    </div>
+  </nav>

@@ -1,31 +1,71 @@
-.iiita-nav .brand .logo{
-    cursor: pointer;
-    margin-right: auto;
-    width: 45px;
-    height: 50px;
-    margin-left: 30px;
-    margin-right: 0px;
-  }
-  
-  ._search_ {
-    width: 120%;
-    margin-left: 200px;
-  }
-  
-  ._search_ .search_input{
-    width: 50%;
-  }
-  
-  .navbar .collapse .login-btn, .sell-btn, .register-btn, .help-btn {
-    margin-right: 1%;
-    font-size: 20px;
-  }
-  
-  .category-bar{
-    background-color: #DFF0CE;
-  }
-  
-  .category-bar .categ-names{
-    margin-left: 10%;
-    display: flex;
-  }
+/* Home Page Css */
+
+.category-bar{
+  padding: 5px 150px;
+  /* border: 1px solid black; */
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+} 
+
+.category-bar .categ-names{
+margin-left: 10%;
+display: flex;
+} 
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(4, 17rem);
+  grid-gap: 50px;
+  padding: 60px 0px 0px 140px;
+  position: relative;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,0%);
+}
+
+.grid .products-display{
+  grid-column: auto;  
+  display: grid;
+  grid-gap: 50px;
+}
+
+.grid .products-display .card{
+  grid-column-end: span 0;
+  display: flex;
+  /* margin-bottom: 2%; */
+  flex-direction: column;
+  margin-right: 0;
+}
+.grid .products-display .card .card-text {
+  margin: 0px; 
+}
+
+/* .grid .products-display{
+  width: 40%;
+} */
+/* 
+.main-products{
+  display: grid;
+  grid-template-columns: repeat(4, 25rem);
+  grid-gap: 40px;
+  padding: 60px 0px 0px 100px;
+  position: relative;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,0%);
+}
+
+.main-products .products-display{
+  grid-column: auto;  
+  display: grid;
+  grid-gap: 40px;
+}
+
+.main-products .products-display .card{
+  grid-column-end: span 0;
+  display: flex;
+  /* margin-bottom: 2%; */
+  /* flex-direction: column;
+  margin-right: 2%;
+}  */

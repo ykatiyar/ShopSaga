@@ -1,0 +1,121 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #f8f9fa;
+    color: #777;
+}
+
+.form-background{
+    background: #003049;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    padding: 40px;
+    box-sizing: border-box;
+    border: 1px solid rgba((0), 0, 0, .2);
+    
+}
+.form-background .container input:focus,
+.form-background .container input:valid{
+    outline: none;
+    border-bottom: 2px solid #d62828;
+}
+.form-background .container input[type="submit"],
+.form-background .container input[type="text"],
+.form-background .container input[type="password"],
+.form-background .container input[type="file"]
+    {
+    padding: 10px 10px;
+    margin: 15px 0 15px 0; 
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #999;
+    color: #fff;
+}
+.form-background .container input[type="checkbox"]{
+    width: auto;
+    text-align: end;
+    margin-left: 200px;
+}
+.form-background .container input[type="checkbox"] ~ p{
+    width: auto;
+    margin: 0;
+    display: inline-block;
+    margin-left: 3px; 
+    font-size: 14px;
+    text-align: end;
+}
+
+.form-background .container input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    background: #d62828;
+    color: #fff;
+    margin: 20px 0 15px 0; 
+    text-transform: uppercase;
+}
+
+
+form div{
+    position: relative;
+}
+form div label{
+    position: absolute;
+    top: 25px;
+    left: 10px;
+    color: #999;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.form-background .container input:focus ~ label,
+.form-background .container input:valid ~ label{
+    top: -5px;
+    left: 5px;
+    color: #d62828;
+    font-size: 12px;
+    font-weight: bold;
+}
+.form-background .container .file label{
+    top: 0px;
+    font-size: 12px;
+}
+
+.form-background  a{
+    color: #aaa;
+    text-decoration: none;
+    margin-top: 5px;
+    display: block;
+    text-align: end;
+}
+.form-background a[href="/signin"]{
+    /* top: 80%; */
+    color: #aaa;
+   /* margin-top: 10px; */
+    font-size: 14px;
+}
+.form-background  a span{
+    color: #d62828;
+}
+.form-background .extra-links{
+    margin-top: 10px;
+}
+
+.form-background h2{
+    display: inline-block;
+    color: #fff;
+    margin-right: 10px;
+}
+.form-background h2[class="active"]{
+    border-bottom: 4px solid #d62828;
+    border-radius: 3px;
+    height: 35px;
+    /* width: 100px; */
+    text-align: center
+}

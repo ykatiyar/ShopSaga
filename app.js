@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(adminRoutes);
 
-
 mongoConnect(() => {
     app.listen(3000);
+    console.log('Server Started at 3000!!');
 })
