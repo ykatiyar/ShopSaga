@@ -1,15 +1,36 @@
-const products = [];
+const getDb = require('../database/database').getDb;
 
-module.exports = class Product {
+class Product {
     constructor(t) {
         this.name = t.name;
         this.price = t.price;
         this.description = t.description;
     }
+
     save() {
-        products.push(this);
+        const db = getDb();
+        return db.collection('products')
+            .insertOne(this)
+            .then(result => {
+                console.log(result);
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
+
     static fetchAll() {
-        return products;
+        const db = getDb();
+        return db.collection('products')
+            .find()
+            .toArray()
+            .then(products => {
+                console.log(products);
+                return products;
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 }
+module.exports = Product;

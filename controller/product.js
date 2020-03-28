@@ -1,10 +1,16 @@
 const Product = require('../models/product');
 
 exports.getProductPage = (req, res) => {
-    res.render('home.ejs', {
-        prods: Product.fetchAll(),
-        pageTitle:'ShopSaga'
-    });
+    Product.fetchAll()
+        .then(products => {
+            res.render('home', {
+                prods: products,
+                pageTitle: 'ShopSaga'
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        });
 }
 
 exports.getAddProduct = (req, res) => {
