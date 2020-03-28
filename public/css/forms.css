@@ -1,17 +1,8 @@
 /* css to be followed by all forms */
-/* 
-.product-form {
-    border: 5px;
-} */
 
-/* to be removed */
 .navbar .form-inline {
     display: none;
 }
-.navbar .navbar-brand {
-    margin-right: 54vw;
-}
-/* end */
 
 .form-control {
     margin: 1rem 0;
