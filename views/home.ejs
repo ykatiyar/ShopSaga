@@ -1,21 +1,31 @@
 <%- include('includes/head.ejs') %>
     <link rel="stylesheet" href="/css/home.css">
 </head>
-
 <body>
     <%- include('includes/navbar.ejs') %>
     <!-- Category Bar Start -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light category-bar ">
-        <div class="category-bar">
-            <a href="#" class="btn category">Electronics</a>
-            <a href="#" class="btn category">Computer Accessories</a>
-            <a href="#" class="btn category">Hobbies</a>
-            <a href="#" class="btn category">Books</a>
-            <a href="#" class="btn category">Mattresses</a>
-            <a href="#" class="btn category">Others</a>
-        </div>
-      </nav>
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link " href="#">Electronics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Accessories</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Hobbies</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Books</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mattresses</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Others</a>
+          </li>
+      </ul>
     <!-- Category Bar End -->
+
     <main>
         <% if (prods.length > 0) { %>
             <div class="grid">

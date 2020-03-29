@@ -1,8 +1,8 @@
 /* Home Page Css */
 
-.category-bar{
+/* .category-bar{
   padding: 5px 150px;
-  /* border: 1px solid black; */
+  border-bottom: 1px solid black;
   width: 100vw;
   display: flex;
   justify-content: space-around;
@@ -11,8 +11,17 @@
 .category-bar .categ-names{
 margin-left: 10%;
 display: flex;
-} 
+}  */
 
+.nav-pills {
+  /* background: #6a6a6b; */
+  padding-left: 15vw;
+  padding-right: 15vw;
+  box-shadow: 0  1px 3px rgba(0, 0, 0, 0.4);
+}
+.nav-pills a{
+  color: #333;
+}
 .grid{
   display: grid;
   grid-template-columns: repeat(4, 17rem);
