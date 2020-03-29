@@ -1,15 +1,6 @@
-
-#page_screen{
-    background-color:#000000;
-    filter:alpha(opacity=80);
-    opacity: 0.8;
-    position:absolute;
-    top:0px;
-    left:0px;
-    width:100%;
-    display:none;
+body {
+    background: #ccc;
 }
-
 #newsletter_panel{
     width:600px;
     height:500px;
@@ -17,10 +8,9 @@
     border:1px solid #FFFFFF;
     border-radius: 3px;
     position: absolute;
-    top:0px;
-    left:0px;
-    transform: translate(20%,15%);
-    visibility: hidden;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-55%);
 }
 #newsletter_panel .form-background .container {
     position: relative;
@@ -28,7 +18,7 @@
 #newsletter_panel .form-background .container .login-form{
     position: relative;
 }
-#newsletter_panel .form-background .container .txb {
+#newsletter_panel .form-background .container .login-form .txtb {
     position: relative;
 }
 
@@ -45,11 +35,9 @@
     color: #252c33;
     margin: 20px 15%;
     padding: 7px 16px;
+
 }
 
-/* #newsletter_panel .form-background .container input:focus{
-    border: 1.15px solid #33adff;
-} */
 
 #newsletter_panel .form-background h1{
     text-align: center;
@@ -79,17 +67,18 @@
     background-color: #57b846;
     transition: 0.5s;
 }
-.sgnup, h4{
+.sgnup, p{
     float: left;
     text-decoration: none;
     color: #333;
     font-size: 1rem;
     margin-left: 0px;
-    margin-top: 3px;
+    /* margin-top: 3px;x */
 }
 
 .sgnup{
     margin-left: 1%;
+    line-height: 1;
 }
 
 #newsletter_panel .form-background .container .login-form .bottom-text .fpswd{
@@ -110,7 +99,7 @@
     color: #57b846;
 }
 
-#newsletter_panel .form-background .container .login-form .bottom-text h4{
+#newsletter_panel .form-background .container .login-form .bottom-text p{
     font-weight: 100;
     text-align: center;
     margin: 20px 0 0 50px;
@@ -140,9 +129,9 @@
 
 
 .focus-input100 {
-     position: absolute; 
+    position: absolute; 
     pointer-events: none;
-    top: 20px;
+    bottom: 0px;
     display: block;
     width: calc(70% + 1px);
     outline: none;
@@ -151,7 +140,7 @@
     font-size: 1.3rem;
     border: 1px solid #57b846;
     box-sizing: border-box;
-    margin: 20px 15%;
+    margin: 0 15%;
     padding: 7px 16px;
     visibility: hidden;
     opacity: 0;
@@ -178,4 +167,3 @@
     -o-transform: scale(1);
     transform: scale(1);
   }
-  

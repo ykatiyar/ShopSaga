@@ -1,28 +1,31 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/auth/forms.css">
+    <link rel="stylesheet" href="/css/auth/form.css">
 </head>
 
 <body>
     <%- include('../includes/navbar.ejs') %>
- 
-    <div class="form-background">
-        <h2 class="active">Log In</h2>
-        <div class="container">           
-            <form action="/login" method="POST">
-                <div>
-                    <input type="text" name="email" required>
-                    <label> Email </label>
+        <div id="newsletter_panel">
+            <div class="form-background">
+                <h1 class="active">Account Login</h1>
+                <div class="container">
+                    <form action="signin" class="login-form" method="POST">
+                        <div class="txtb">
+                            <label for="username"> Username</label>
+                            <input class="input100" name="username" type="text" required>
+                            <span class="focus-input100"></span>
+                        </div>                        
+                        <div class="txtb">
+                            <label>Password</label>
+                            <input class="input100" name="password" type="password" required>
+                            <span class="focus-input100" style="margin-top: 135px;"></span>
+                        </div>
+                        <input type="submit" class="logbtn" value="Login">
+                        <div class="bottom-text">
+                            <a class="fpswd" href="#">Forgot Password?</a>
+                            <p style="display: inline;">Don't have an account?</p><a class="sgnup" style="color: #57b846;" href="/signup">Sign Up</a>
+                        </div>      
+                    </form>           
                 </div>
-                <div>
-                    <input type="password" name="password" required>
-                    <label> Password </label>
-                    </div> 
-                <input type="submit">
-            </form>
+            </div>
         </div>
-        <div class="extra-links">
-            <a href="/reset-pwd"> Forgot Password?</a>
-            <a href="/signin">Don't have an account?<span> Sign up</span> now!</a>
-        </div>
-    </div>
  <%- include('../includes/end.ejs') %>

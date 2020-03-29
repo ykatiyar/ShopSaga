@@ -1,32 +1,32 @@
 <%- include('../includes/head.ejs') %>
-    <link rel="stylesheet" href="/css/auth/forms.css">
+    <link rel="stylesheet" href="/css/auth/form.css">
     <!-- <link rel="stylesheet" href="css/main.css"> -->
 </head>
 
 <body>
     <%- include('../includes/navbar.ejs') %>
-    </div>
-    
+    <div id="newsletter_panel">
         <div class="form-background">
-            <h2 class="active">Sign Up</h2>
-            <div class="container">           
-                <form action="/signin" method="POST">
-                    <div>
-                        <input type="text" name="email" required>
-                        <label> Email </label>
+            <h1 class="active">Welcome !!</h1>
+            <div class="container">
+                <form action="signin" class="login-form" method="POST">
+                    <div class="txtb">
+                        <label for="username"> Username</label>
+                        <input class="input100" name="username" type="text" required>
+                        <span class="focus-input100"></span>
+                    </div>                        
+                    <div class="txtb">
+                        <label>Password</label>
+                        <input class="input100" name="password" type="password" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
                     </div>
-                    <div>
-                        <input type="password" name="password" required>
-                        <label> Password </label>
-                    </div>
-                    <div>
-                        <input type="password" name="consfirm-password" required>
-                        <label> Confirm Password </label>
-                    </div>
-                    <input type="submit">
-                </form>
+                    <input type="submit" class="logbtn" value="SignUp">
+                    <div class="bottom-text">
+                        <a class="fpswd" href="#">Forgot Password?</a>
+                        <p style="display: inline;">Already have an account? </p> <a class="sgnup" style="color: #57b846;" href="/login">Login</a> 
+                    </div>      
+                </form>           
             </div>
-            <a href="/login">Have an account?<span> Log In</span> now!</a>
         </div>
-
+    </div>
  <%- include('../includes/end.ejs') %>
