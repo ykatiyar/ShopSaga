@@ -26,26 +26,31 @@
       </ul>
     <!-- Category Bar End -->
 
+    <!-- Product Display -->
     <main>
-        <% if (prods.length > 0) { %>
-            <div class="grid">
-                <% for (let product of prods) { %>
-                    <article class="products-display">
-                        <div class="card" style="width: 17rem;">
-                            <div class="card-image">
-                                <img class="card-img-top" src="/images/placeholder.png">
-                            </div>
-                            <div class="card-body">
-                            <h5 class="card-title">₹ <%= product.price %></h5>
-                            <p class="card-text"><%= product.name %></p>
-                            <p class="card-text"><%= product.description %></p>
-                            </div>
+            <div class="container-fluid">
+              <h4 class="category-text">Recently Uploaded</h4>
+              <% for(let i=0; i<prods.length; i=i+5) { %>
+                <div class="row">
+                  <% for(let j=i; j<Math.min(prods.length, i+5); j++) { %>
+                    <div class="col-sm">
+                      <div class="product">
+                        <div class="product-image">
+                            <img class="product-img-top" src="/images/placeholder.png">
                         </div>
-                    </article>
-                <% } %>
+                        <div class="product-details">
+                          <p class="product-name"><%= prods[j].name %></p>
+                          <p class="product-description"><%= prods[j].description %></p>
+                        </div>
+                        <div class="seller-details">
+                          <p class="product-price">₹<%= prods[j].price %></p>
+                          <a class="btn btn-outline-info" href="/" role="button">View More</a>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+              <% } %>
             </div>
-        <% } else { %>
-            <h1>No Products Found!</h1>
-        <% } %>
     </main>
 <%- include('includes/end.ejs') %>
