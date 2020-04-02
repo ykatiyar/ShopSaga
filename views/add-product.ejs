@@ -1,25 +1,62 @@
 <%- include('includes/head.ejs') %>
     <link rel="stylesheet" href="/css/forms.css">
-    <!-- <link rel="stylesheet" href="/css/.css"> -->
 </head>
 
 <body>
    <%- include('includes/navbar.ejs') %>
-    <main>
-        <form class="product-form" action="/post" method="POST">
-            <div class="form-control">
-                <label for="title">Name</label>
-                <input type="text" name="name" id="title">
+   <div class="container">
+    <div class="wrapper">
+        <h3>Post Your Add</h3>
+      <form>
+        <div class="form-group form-element">
+          <label for="formGroupExampleInput">Product</label>
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Product Name" required>
+        </div>
+        <label for="formGroupCategoryInput">Category</label>
+        <select id="formGroupCategoryInput" class="form-control form-element form-separate" required>
+          <option value="">Pick a Category</option>
+          <option value="1">Electrical Appliance</option>
+          <option value="2">PC Accessories</option>
+          <option value="3">Book/Novel</option>
+          <option value="4">Hobby Related</option>
+          <option value="5">Other</option>
+        </select>
+        <label for="formGroupConditionInput">Condition</label>
+        <select id="formGroupConditionInput" class="form-control form-element form-separate" required>
+          <option value="">Condition</option>
+          <option value="1">Almost Like New</option>
+          <option value="2">Gently Used</option>
+          <option value="3">Heavily Used</option>
+          <option value="4">Needs Service</option>
+
+        </select>
+        <div class="form-element form-separate">
+          <label class="sr-only" for="inlineFormInputGroup">Price</label>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">₹</div>
             </div>
-            <div class="form-control">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description">
-            </div>
-            <div class="form-control">
-                <label for="price">Price</label>
-                <input type="text" name="price" id="price">
-            </div>
-            <button class="btn" type="submit">Add Product</button>
-        </form>
-    </main>
+            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Price" required>
+          </div>
+        </div>
+        <div class="form-group form-element">
+          <label for="exampleFormControlTextarea1">Short Description</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" required></textarea>
+        </div>
+        <div class="form-group form-element">
+          <label for="exampleFormControlTextarea1">Description</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" required></textarea>
+        </div>
+        <div class="custom-file form-element form-separate">
+          <input type="file" class="custom-file-input" id="customFile" required>
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div>
+        <div class="custom-control custom-switch form-separate">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1">
+          <label class="custom-control-label" for="customSwitch1">Show my phone number on my ads </label>
+        </div>
+        <button type="submit" class="btn btn-success">Add Product</button>
+      </form>
+    </div>  
+  </div>
 <%- include('includes/end.ejs') %>
