@@ -14,6 +14,9 @@ router.get('/login', userController.getUserLogin);
 
 router.get('/signup', userController.getUserSignup);
 
+router.get('/product/:productId', productController.getProduct);
+
+
 router.use(errorController.get404);
 
 module.exports = router;

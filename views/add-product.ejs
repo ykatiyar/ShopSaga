@@ -7,27 +7,27 @@
    <div class="container">
     <div class="wrapper">
         <h3>Post Your Add</h3>
-      <form>
+      <form action="/post" method="POST" >
         <div class="form-group form-element">
           <label for="formGroupExampleInput">Product</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Product Name" required>
+          <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Product Name" required>
         </div>
         <label for="formGroupCategoryInput">Category</label>
-        <select id="formGroupCategoryInput" class="form-control form-element form-separate" required>
+        <select id="formGroupCategoryInput" class="form-control form-element form-separate" name="category"required>
           <option value="">Pick a Category</option>
-          <option value="1">Electrical Appliance</option>
-          <option value="2">PC Accessories</option>
-          <option value="3">Book/Novel</option>
-          <option value="4">Hobby Related</option>
-          <option value="5">Other</option>
+          <option value="Electrical Appliance">Electrical Appliance</option>
+          <option value="PC Accessories">PC Accessories</option>
+          <option value="Book/Novel">Book/Novel</option>
+          <option value="Hobby Related">Hobby Related</option>
+          <option value="Other">Other</option>
         </select>
         <label for="formGroupConditionInput">Condition</label>
-        <select id="formGroupConditionInput" class="form-control form-element form-separate" required>
+        <select id="formGroupConditionInput" class="form-control form-element form-separate" name="condition" required>
           <option value="">Condition</option>
-          <option value="1">Almost Like New</option>
-          <option value="2">Gently Used</option>
-          <option value="3">Heavily Used</option>
-          <option value="4">Needs Service</option>
+          <option value="Almost Like New">Almost Like New</option>
+          <option value="Gently Used">Gently Used</option>
+          <option value="Heavily Used">Heavily Used</option>
+          <option value="Needs Service">Needs Service</option>
 
         </select>
         <div class="form-element form-separate">
@@ -36,7 +36,7 @@
             <div class="input-group-prepend">
               <div class="input-group-text">₹</div>
             </div>
-            <input type="number" class="form-control" id="inlineFormInputGroup" placeholder="Price" required>
+            <input type="number" class="form-control" id="inlineFormInputGroup" name="price" placeholder="Price" required>
           </div>
         </div>
         <div class="form-group form-element">
@@ -45,10 +45,10 @@
         </div>
         <div class="form-group form-element">
           <label for="exampleFormControlTextarea1">Description</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" required></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" name="decription" rows="4" required></textarea>
         </div>
         <div class="custom-file form-element form-separate">
-          <input type="file" class="custom-file-input" id="customFile" required>
+          <input type="file" class="custom-file-input" id="customFile" >
           <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <div class="custom-control custom-switch form-separate">

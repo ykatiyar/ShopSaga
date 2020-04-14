@@ -1,25 +1,238 @@
-.product-form {
-    width: 20rem;
-    max-width: 90%;
-    margin: auto;
+/* ye margin nav wgera k liye diya h kuchh to rhega hi upar*/
+body{
+    background-color: #F8F8F8;
+}
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 7fr 3fr;
+    grid-gap: 0.8em;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 10vh 5vw 10vh 5vw;
+    /* overflow: hidden; */
 }
 
-.product-item {
-    width: 20rem;
-    max-width: 95%;
+.grid-container > div{
+    padding: 0.5em;
+    border-radius: 3px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+    background-color: #FFF;
 }
 
-.product__title {
-    font-size: 1.2rem;
+/*THUMBNAILS    BOX    KI    SETTINGS*/
+.thumbnails_box{
+    grid-row: 1/5; 
+}
+
+/* IAMGE    BOX    KI   SETTINGS*/
+.image_box{
+    grid-row:1/5;
+}
+
+/*   PRICE   BOX  KI   SETTINGS*/
+.price_box{
+    grid-row:1/3;
+    grid-auto-rows: minmax(100px,auto);
+}
+.price_box h1, .description_box h1, .contact_box h1{
+    color: #002f34;
+    font-size: 2vw;
+    line-height: 8vh;
+    font-weight: 550;
+}
+
+.price_box{
+    padding: 2vh 2vw 2vh 2vw !important;
+}
+.price_box p{
+    color:#4d4d4d;
+    margin-top: 5%;
+}
+.price_box .date{
+    float: right;
+    margin-top: -5vh;
+    margin-right: 1em;
+    font-size: 1em;
+}
+
+.price_box{
+    grid-row: 1/2;
+} 
+
+.contact_box{
+    grid-row:2/6;
+}
+
+.contact_box h1{
     text-align: center;
 }
 
-.product__price {
-    text-align: center;
-    color: #4d4d4d;
-    margin-bottom: 0.5rem;
+.contact_box figure{
+    background-image:url(avatar_4.olx.9946512d.png);
+    height: 4em;
+    width: 4em;
+    font-weight: 400;
+    background-size: cover;
+    border-radius: 50%;
+    margin: 0;
+    cursor: pointer;
+    float: left;
 }
 
-.product__description {
-    text-align: center;
+.contact_box .link-to-chat{
+    background: #005ce6;
+    border:1px solid #005ce6;
+    font-size: 1.1vw;
+    height: 5vh;
+    border-radius: 3px;
+    width:90%;
+    color: white; 
+    margin-top:5%;
+    margin-bottom: 5%;
+    font-weight: 500;
+    cursor: pointer; 
+    margin-left: 4%;
+    margin-right: 2%;  
+}
+
+.contact_box .link-to-chat:hover{
+    background-color: #005ab6;
+    transition: ease-in-out 0.2s;
+}
+
+.seller-profile-link a{
+    text-decoration: none;
+    float: left;
+    margin-left: 2.5em;
+    margin-top: 3%;
+}
+
+.seller-profile-link a span{
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.seller-profile-link img{
+    margin-right: 1em;
+    width: 50px;
+}
+
+.contact-details span{
+    margin-left: 22%;
+}
+
+.contact-details a{
+    position: absolute;
+    text-decoration: none;
+    font-size: 0.8vw;
+    margin-left: 3%;
+    color:#005ce6;
+    outline: none;    
+}
+
+.contact-details a:hover{
+    text-decoration: underline;
+    color: #005ab6;
+}
+
+.description_box{
+    grid-row: 5/7;
+    grid-column: 1/3;
+    grid-auto-rows: minmax(100px, auto);
+    padding: 2vh 5vw 2vh 5vw !important;
+}
+
+
+
+/*common to both the arrows*/ 
+/* .arrow{
+    cursor:pointer;
+    position: absolute;
+    top: 50%;
+    margin-top: -20px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    opacity: 0.4;
+} */
+
+/*common to both of the arrows*/
+/* .arrow:hover{
+    opacity: 0.8;
+    transition: ease-in 0.2s;
+} */
+
+/*left wala arrow*/
+/* #arrow-left{
+    border-width: 20px 30px 20px 0;
+    border-color: transparent white transparent transparent;
+    left: 0;
+    margin-left: 10px;
+} */
+/*right wala arrow*/
+/* #arrow-right{
+    border-width: 20px 0 20px 30px;
+    border-color: transparent transparent transparent white;
+    right: 0;
+    margin-right: 10px;
+} */
+
+
+
+/*THUMBNAIL WALE DIBBE KI SETTINGS*/
+.grid-container .thumbnails_box input[type="radio"]{
+    width: 15vh;
+    height:10vh;
+    border: 1px solid grey;
+    display: block;
+    -webkit-appearance: none;
+    margin-top: 3.5vh;
+    cursor: pointer;
+}
+
+.grid-container .thumbnails_box input[type="radio"]:hover{
+    border: 0.1em solid lightskyblue;
+}
+
+
+#one{background-image: url(image1.jpeg);background-size: cover;}
+#two{background-image: url(image2.jpeg);background-size: cover;}
+#three{background-image: url(image3.jpeg);background-size: cover;}
+#four{background-image: url(image4.jpeg);background-size: cover;}
+#five{background-image: url(image5.jpeg);background-size: cover;}
+
+
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff0000' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E") !important;
+    position: relative;
+    float: left;
+}
+.carousel-control-next-icon {
+   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff0000' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E") !important;
+    position: relative;
+}
+
+.image_box img{
+     /* padding-left: 2%; */
+    /* padding-right: 5%;
+    padding-bottom: 0;  */
+    object-fit: cover;
+    height:70vh;
+    /* width: 50vw; */
+    width: 100%;
+}
+
+.seller-info p{
+    color: grey;
+    margin-top: 5%;
+    margin-left: 10%;
+    margin-bottom: 0;
+}
+
+.seller-info h2{
+    margin-left: 10%;
+    font-weight: 800;
+    font-size: 1.2em;
+
 }
