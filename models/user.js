@@ -14,6 +14,22 @@ const userSchema = new Schema ({
         type: Number,
         required: true
     },
+    date_joined: {
+        type: Date,
+        required: true
+    },
+    college: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true
+    },
     products: [
         {
             productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true}

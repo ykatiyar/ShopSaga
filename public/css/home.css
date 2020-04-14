@@ -56,13 +56,13 @@
 
 .container-fluid .row .col-sm .product .product-image{
   height: 45vh;
-  background: #333;
   margin: 0;
   box-sizing: border-box;
 }
 .container-fluid .row .col-sm .product .product-image .product-img-top{
+  height: 45vh;
   width: 100%;
-  height: 100%;
+  object-fit: cover;
 }
 
 .container-fluid .row .col-sm .product .product-details{

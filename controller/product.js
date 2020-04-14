@@ -26,13 +26,17 @@ exports.postAddProduct = (req, res) => {
     const description = req.body.description;
     const category = req.body.category;
     const condition = req.body.condition;
+    const image_url = req.body.image_url;
+    const date_posted = new Date();
     const product = new Product({
         name: name,
         price: price,
         description: description,
         condition: condition,
         category: category,
-        userId: req.user
+        userId: req.user,
+        image_url: image_url,
+        date_posted: date_posted
     });     
     product.save()
         .then(result => {
@@ -48,8 +52,9 @@ exports.postAddProduct = (req, res) => {
 exports.getProduct = (req, res) => {
     const prodID = req.params.productId;
     Product.findById(prodID)
-        .populate('userId', 'name email')
+        .populate('userId')
         .then(product => {
+            console.log(product)
             res.render('product', {
                 product: product,
                 pageTitle: product.title

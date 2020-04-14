@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 
 app.use((req, res, next) => {
-    User.findById('5e9572448f1fc03d253e9854')
+    User.findById('5e95b880f08ba35513c087dd')
         .then(user => {
             req.user = user;
             next();
@@ -28,9 +28,13 @@ mongoose.connect('mongodb+srv://nuclrya:E70CNB3Dt9Nl8VtE@cluster0-osmed.mongodb.
         User.findOne().then(user => {
             if(!user) {
                 const user = new User({
-                    name: 'Yash',
+                    name: 'Aditya Bhati',
                     email: 'xyz@gmail.com',
-                    cell: '564'
+                    cell: '987654321',
+                    date_joined: new Date(),
+                    college: 'IIIT Allahabad',
+                    city: 'Prayagraj',
+                    state: 'Uttar Pradesh'
                 });
                 user.save();
             }

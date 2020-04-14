@@ -26,47 +26,15 @@ const productSchema = new Schema( {
     userId: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    image_url: {
+        type: String,
+        required: true
+    },
+    date_posted: {
+        type: Date,
+        required: true 
     }
 });
 
 module.exports = mongoose.model('Product', productSchema);
-
-
-// const getDb = require('../database/database').getDb;
-
-// class Product {
-//     constructor(t) {
-//         this.name = t.name;
-//         this.price = t.price;
-//         this.description = t.description;
-//         this.category = t.category;
-//         this.condition = t.condition;
-//     }
-
-//     save() {
-//         const db = getDb();
-//         return db.collection('products')
-//             .insertOne(this)
-//             .then(result => {
-//                 console.log(result);
-//             })
-//             .catch(err => {
-//                 console.log(err);
-//             });
-//     }
-
-//     static fetchAll() {
-//         const db = getDb();
-//         return db.collection('products')
-//             .find()
-//             .toArray()
-//             .then(products => {
-//                 console.log(products);
-//                 return products;
-//             })
-//             .catch(err => {
-//                 console.log(err);
-//             });
-//     }
-// }
-// module.exports = Product;
