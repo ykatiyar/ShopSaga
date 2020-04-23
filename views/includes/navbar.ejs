@@ -6,8 +6,8 @@
   
     <div class="collapse navbar-collapse justify-content-end" id="navbarTogglerDemo02">
       <ul class="navbar-nav mt-2 mt-lg-0">
-        <form class="form-inline my-2 my-lg-0" id="searchProduct">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search">
+        <form class="form-inline my-2 my-lg-0" id="searchProduct" action="/" method="GET">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" name="product">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <% if(isLoggedIn) { %>

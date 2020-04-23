@@ -18,7 +18,7 @@
             <a class="nav-link" href="/category/books">Books</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/category/sports">Sport</a>
+                <a class="nav-link" href="/category/sports">Sports</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/category/other">Other</a>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="product-details">
                           <p class="product-name"><%= prods[j].name %></p>
-                          <p class="product-description"><%= prods[j].description %></p>
+                          <p class="product-description"><%= prods[j].description.split(" ").splice(0,6).join(" ") %>...</p>
                         </div>
                         <div class="seller-details">
                           <p class="product-price">₹<%= prods[j].price %></p>

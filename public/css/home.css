@@ -20,6 +20,10 @@
   border-bottom:1px solid rgba(0, 0, 0, 0.1);
 }
 
+.container-fluid .row .col-sm {
+  max-width: 20vw;
+}
+
 .container-fluid .row .col-sm .product {
   height: 60vh;
   border: 1px solid rgba(0, 0, 0, 0.2);

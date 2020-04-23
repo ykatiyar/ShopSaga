@@ -1,18 +1,40 @@
 const Product = require('../models/product');
 
 exports.getProductPage = (req, res) => {
-    Product.find()
-        .then(products => {
-            // console.log(products)
-            res.render('home', {
-                prods: products,
-                pageTitle: 'ShopSaga',
-                isLoggedIn: req.session.isLoggedIn
-            })
-        })
-        .catch(err => {
-            console.log(err);
+    if(req.query.product) {
+        const regex = new RegExp(escapeRegex(req.query.product), 'gi');
+        let noMatch=false;
+        Product.find({
+                $or: [
+                    {name: regex},
+                    {description: regex},
+                    {category: regex}
+                ]
+            }, function(err, allProducts){
+            if(err || !allProducts.length)
+                noMatch=true;
+            res.render("home", {
+                prods: allProducts,
+                pageTitle: req.query.product,
+                isLoggedIn: req.session.isLoggedIn,
+                noMatch:noMatch
+            });
         });
+    }
+    else{
+        Product.find()
+            .then(products => {
+                // console.log(products)
+                res.render('home', {
+                    prods: products,
+                    pageTitle: 'ShopSaga',
+                    isLoggedIn: req.session.isLoggedIn
+                })
+            })
+            .catch(err => {
+                console.log(err);
+            });
+    }
 }
 
 exports.getAddProduct = (req, res) => {
@@ -78,3 +100,7 @@ exports.getCategoryPage = (req, res) => {
         })
         .catch(err => console.log(err));
 };
+
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};  

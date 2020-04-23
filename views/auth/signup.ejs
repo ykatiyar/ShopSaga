@@ -5,7 +5,7 @@
 
 <body>
     <%- include('../includes/navbar.ejs') %>
-    <div id="newsletter_panel">
+    <div id="newsletter_panel" class="newsletter_panel_signup">
         <div class="form-background">
             <h1 class="active">Welcome !!</h1>
             <div class="container">
@@ -14,12 +14,37 @@
                         <label for="username"> Username</label>
                         <input class="input100" name="username" type="text" required>
                         <span class="focus-input100"></span>
+                    </div>
+                    <div class="txtb">
+                        <label>Email</label>
+                        <input class="input100" name="email" type="email" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
                     </div>                        
                     <div class="txtb">
                         <label>Password</label>
                         <input class="input100" name="password" type="password" required>
                         <span class="focus-input100" style="margin-top: 135px;"></span>
                     </div>
+                    <div class="txtb">
+                        <label>Ph No.</label>
+                        <input class="input100" name="cell" type="number" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
+                    </div>
+                    <div class="txtb">
+                        <label>College</label>
+                        <input class="input100" name="college" type="text" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
+                    </div>
+                    <div class="txtb">
+                        <label>City</label>
+                        <input class="input100" name="city" type="text" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
+                    </div>
+                    <!-- <div class="txtb">
+                        <label>Password</label>
+                        <input class="input100" name="password" type="password" required>
+                        <span class="focus-input100" style="margin-top: 135px;"></span>
+                    </div> -->
                     <input type="submit" class="logbtn" value="SignUp">
                     <div class="bottom-text">
                         <a class="fpswd" href="#">Forgot Password?</a>
