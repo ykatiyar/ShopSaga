@@ -6,7 +6,8 @@ exports.getProductPage = (req, res) => {
             console.log(products)
             res.render('home', {
                 prods: products,
-                pageTitle: 'ShopSaga'
+                pageTitle: 'ShopSaga',
+                isLoggedIn: req.session.isLoggedIn
             })
         })
         .catch(err => {
@@ -16,7 +17,8 @@ exports.getProductPage = (req, res) => {
 
 exports.getAddProduct = (req, res) => {
     res.render('add-product', {
-        pageTitle:'Post Add'
+        pageTitle:'Post Add',
+        isLoggedIn: req.session.isLoggedIn
     });
 }
 
@@ -57,7 +59,8 @@ exports.getProduct = (req, res) => {
             console.log(product)
             res.render('product', {
                 product: product,
-                pageTitle: product.title
+                pageTitle: product.title,
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));

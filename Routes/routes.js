@@ -12,6 +12,10 @@ router.get('/post', productController.getAddProduct);
 
 router.get('/login', userController.getUserLogin);
 
+router.post('/login', userController.postUserLogin);
+
+router.get('/logout', userController.postUserLogout);
+
 router.get('/signup', userController.getUserSignup);
 
 router.get('/product/:productId', productController.getProduct);

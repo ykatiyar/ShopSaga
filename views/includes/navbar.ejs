@@ -10,15 +10,21 @@
           <input class="form-control mr-sm-2" type="search" placeholder="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <% if(isLoggedIn) { %>
         <li class="nav-item">
           <a class="nav-link" href="/post"><i class="fas fa-camera"></i> Sell with Us!</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+        <% } else {%>
         <li class="nav-item">
           <a class="nav-link" href="/login">SignIn</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/signup">SignUp</a>
         </li>
+       <% } %>
       </ul>
     </div>
   </nav>

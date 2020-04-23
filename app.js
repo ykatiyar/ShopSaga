@@ -5,15 +5,27 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const routes = require('./Routes/routes');
 const bodyParser = require('body-parser');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const MONGODB_URI="mongodb+srv://nuclrya:E70CNB3Dt9Nl8VtE@cluster0-osmed.mongodb.net/shop?retryWrites=true&w=majority";
+
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'session'
+})
 
 app.set('view engine','ejs');
 app.set('views','views');
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
+app.use(session({secret:'this_must_be_a_very_long_string', resave: false, saveUninitialized: false, store: store}));
 
 app.use((req, res, next) => {
-    User.findById('5e95b880f08ba35513c087dd')
+    if(!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
         .then(user => {
             req.user = user;
             next();
@@ -23,7 +35,7 @@ app.use((req, res, next) => {
 
 app.use(routes);
 
-mongoose.connect('mongodb+srv://nuclrya:E70CNB3Dt9Nl8VtE@cluster0-osmed.mongodb.net/shop?retryWrites=true&w=majority')
+mongoose.connect(MONGODB_URI)
     .then(result => {
         User.findOne().then(user => {
             if(!user) {
