@@ -3,7 +3,7 @@ const Product = require('../models/product');
 exports.getProductPage = (req, res) => {
     Product.find()
         .then(products => {
-            console.log(products)
+            // console.log(products)
             res.render('home', {
                 prods: products,
                 pageTitle: 'ShopSaga',
@@ -42,8 +42,8 @@ exports.postAddProduct = (req, res) => {
     });     
     product.save()
         .then(result => {
-            console.log('Product Created');
-            console.log(result)
+            // console.log('Product Created');
+            // console.log(result)
             res.redirect('/');
         })
         .catch(err => {
@@ -56,10 +56,23 @@ exports.getProduct = (req, res) => {
     Product.findById(prodID)
         .populate('userId')
         .then(product => {
-            console.log(product)
             res.render('product', {
                 product: product,
                 pageTitle: product.title,
+                isLoggedIn: req.session.isLoggedIn
+            });
+        })
+        .catch(err => console.log(err));
+};
+
+exports.getCategoryPage = (req, res) => {
+    const category = req.params.category;
+    Product.find({'category': category})
+        .then(product => {
+            res.render('category', {
+                prods: product,
+                category: category,
+                pageTitle: category,
                 isLoggedIn: req.session.isLoggedIn
             });
         })

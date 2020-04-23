@@ -4,32 +4,33 @@
 <body>
     <%- include('includes/navbar.ejs') %>
     <!-- Category Bar Start -->
-      <ul class="nav nav-pills nav-fill">
-        <li class="nav-item">
-          <a class="nav-link " href="/category/electronics">Electronics</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/category/accessory">Accessories</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/category/hobbies">Hobbies</a>
-        </li>
-        <li class="nav-item">
+        <ul class="nav nav-pills nav-fill">
+            <li class="nav-item">
+            <a class="nav-link " href="/category/electronics">Electronics</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/category/accessory">Accessories</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="/category/hobbies">Hobbies</a>
+            </li>
+            <li class="nav-item">
             <a class="nav-link" href="/category/books">Books</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/category/sports">Sport</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/category/other">Other</a>
-          </li>
-      </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/category/sports">Sport</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/category/other">Other</a>
+            </li>
+        </ul>
     <!-- Category Bar End -->
 
     <!-- Product Display -->
     <main>
             <div class="container-fluid">
-              <h4 class="category-text">Recently Uploaded</h4>
+              <h4 class="category-text"><%= category %></h4>
+              <% if(prods) {%>
               <% for(let i=0; i<prods.length; i=i+5) { %>
                 <div class="row">
                   <% for(let j=i; j<Math.min(prods.length, i+5); j++) { %>
@@ -50,6 +51,7 @@
                     </div>
                   <% } %>
                 </div>
+              <% } %>
               <% } %>
             </div>
     </main>
