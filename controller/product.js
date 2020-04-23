@@ -24,7 +24,6 @@ exports.getProductPage = (req, res) => {
     else{
         Product.find()
             .then(products => {
-                // console.log(products)
                 res.render('home', {
                     prods: products,
                     pageTitle: 'ShopSaga',
@@ -45,31 +44,31 @@ exports.getAddProduct = (req, res) => {
 }
 
 exports.postAddProduct = (req, res) => {
-    const name = req.body.name;
-    const price = req.body.price;
-    const description = req.body.description;
-    const category = req.body.category;
-    const condition = req.body.condition;
-    const image_url = req.body.image_url;
-    const date_posted = new Date();
-    const product = new Product({
-        name: name,
-        price: price,
-        description: description,
-        condition: condition,
-        category: category,
-        userId: req.user,
-        image_url: image_url,
-        date_posted: date_posted
-    });     
-    product.save()
-        .then(result => {
-            // console.log('Product Created');
-            // console.log(result)
-            res.redirect('/');
-        })
-        .catch(err => {
-            console.log(err);
+    cloudinary.uploader.upload(req.file.path, function(result) {
+        const name = req.body.name;
+        const price = req.body.price;
+        const description = req.body.description;
+        const category = req.body.category;
+        const condition = req.body.condition;
+        const image_url = result.secure_url;
+        const date_posted = new Date();
+        const product = new Product({
+            name: name,
+            price: price,
+            description: description,
+            condition: condition,
+            category: category,
+            userId: req.session.user._id,
+            image_url: image_url,
+            date_posted: date_posted
+        });     
+        product.save()
+            .then(result => {
+                res.redirect('/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
         });
 }
 
@@ -78,6 +77,7 @@ exports.getProduct = (req, res) => {
     Product.findById(prodID)
         .populate('userId')
         .then(product => {
+            console.log(product)
             res.render('product', {
                 product: product,
                 pageTitle: product.title,
@@ -104,3 +104,9 @@ exports.getCategoryPage = (req, res) => {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };  
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'nuclrya', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});

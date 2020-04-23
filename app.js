@@ -1,33 +1,48 @@
 let express = require('express');
 let app = express();
 const path = require('path');
+require('dotenv').config()
 const mongoose = require('mongoose');
 const User = require('./models/user');
 const routes = require('./Routes/routes');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const MONGODB_URI="mongodb+srv://nuclrya:E70CNB3Dt9Nl8VtE@cluster0-osmed.mongodb.net/shop?retryWrites=true&w=majority";
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
 
 const store = new MongoDBStore({
-    uri: MONGODB_URI,
+    uri: process.env.MONGODB_URI,
     collection: 'session'
 })
 
 app.set('view engine','ejs');
 app.set('views','views');
-
+app.use(upload.single('image'))
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
-app.use(session({secret:'this_must_be_a_very_long_string', resave: false, saveUninitialized: false, store: store}));
+app.use(session({secret:process.env.MONGODB_SECRET, resave: false, saveUninitialized: false, store: store}));
 
 app.use((req, res, next) => {
-    if(!req.session.user) {
+    if(req.session.user) {
         return next();
     }
-    User.findById(req.session.user._id)
+    User.findById('5e95b880f08ba35513c087dd')
         .then(user => {
-            req.user = user;
+            req.session.user = user;
             next();
         })
         .catch(err => console.log(err));
@@ -35,7 +50,7 @@ app.use((req, res, next) => {
 
 app.use(routes);
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
     .then(result => {
         User.findOne().then(user => {
             if(!user) {

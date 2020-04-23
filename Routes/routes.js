@@ -4,7 +4,6 @@ const userController = require('../controller/user');
 const errorController = require('../controller/404');
 const productController = require('../controller/product');
 
-
 router.get('/', productController.getProductPage);
 
 router.post('/post', productController.postAddProduct);

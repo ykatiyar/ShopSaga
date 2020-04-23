@@ -7,14 +7,14 @@
    <div class="container">
     <div class="wrapper">
         <h3>Post Your Add</h3>
-      <form action="/post" method="POST" >
+      <form action="/post" method="POST" enctype="multipart/form-data">
         <div class="form-group form-element">
           <label for="formGroupExampleInput">Product</label>
           <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Product Name" required>
         </div>
         <div class="form-group form-element">
-          <label for="formGroupExampleInput">Image Url</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" name="image_url" placeholder="Image Url" required>
+          <label for="formGroupExampleInput">Image</label>
+          <input type="file" class="form-control" id="formGroupExampleInput" name="image" accept="image/*" placeholder="Image" required>
         </div>
         <label for="formGroupCategoryInput">Category</label>
         <select id="formGroupCategoryInput" class="form-control form-element form-separate" name="category"required>
