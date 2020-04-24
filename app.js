@@ -37,12 +37,12 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:process.env.MONGODB_SECRET, resave: false, saveUninitialized: false, store: store}));
 
 app.use((req, res, next) => {
-    if(req.session.user) {
+    if(!req.session.user) {
         return next();
     }
-    User.findById('5e95b880f08ba35513c087dd')
+    User.findById(req.session.user._id)
         .then(user => {
-            req.session.user = user;
+            req.user = user;
             next();
         })
         .catch(err => console.log(err));
@@ -52,20 +52,6 @@ app.use(routes);
 
 mongoose.connect(process.env.MONGODB_URI)
     .then(result => {
-        User.findOne().then(user => {
-            if(!user) {
-                const user = new User({
-                    name: 'Aditya Bhati',
-                    email: 'xyz@gmail.com',
-                    cell: '987654321',
-                    date_joined: new Date(),
-                    college: 'IIIT Allahabad',
-                    city: 'Prayagraj',
-                    state: 'Uttar Pradesh'
-                });
-                user.save();
-            }
-        })
         app.listen(3000);
     })
     .catch(err => {

@@ -18,6 +18,8 @@ router.get('/logout', userController.postUserLogout);
 
 router.get('/signup', userController.getUserSignup);
 
+router.post('/signup', userController.postUserSignup);
+
 router.get('/product/:productId', productController.getProduct);
 
 router.use(errorController.get404);

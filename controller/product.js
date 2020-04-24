@@ -71,9 +71,9 @@ exports.postAddProduct = (req, res) => {
             name: name,
             price: price,
             description: description,
+            userId: req.user._id,
             condition: condition,
             category: category,
-            userId: req.session.user._id,
             image_url: image_url,
             date_posted: date_posted
         });     
@@ -92,7 +92,6 @@ exports.getProduct = (req, res) => {
     Product.findById(prodID)
         .populate('userId')
         .then(product => {
-            console.log(product)
             res.render('product', {
                 product: product,
                 pageTitle: product.title,
