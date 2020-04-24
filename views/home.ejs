@@ -6,22 +6,22 @@
     <!-- Category Bar Start -->
       <ul class="nav nav-pills nav-fill">
         <li class="nav-item">
-          <a class="nav-link " href="/category/electronics">Electronics</a>
+          <a class="nav-link " href="/?category=electronics">Electronics</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/category/accessory">Accessories</a>
+          <a class="nav-link" href="/?category=accessory">Accessories</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/category/hobbies">Hobbies</a>
+          <a class="nav-link" href="/?category=hobbies">Hobbies</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/category/books">Books</a>
+            <a class="nav-link" href="/?category=books">Books</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/category/sports">Sports</a>
+            <a class="nav-link" href="/?category=sports">Sports</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/category/other">Other</a>
+            <a class="nav-link" href="/?category=other">Other</a>
           </li>
       </ul>
     <!-- Category Bar End -->
@@ -29,7 +29,7 @@
     <!-- Product Display -->
     <main>
             <div class="container-fluid">
-              <h4 class="category-text">Recently Uploaded</h4>
+              <h4 class="category-text"><%= pageHeader %></h4>
               <% for(let i=0; i<prods.length; i=i+5) { %>
                 <div class="row">
                   <% for(let j=i; j<Math.min(prods.length, i+5); j++) { %>

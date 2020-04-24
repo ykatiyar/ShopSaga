@@ -15,17 +15,32 @@ exports.getProductPage = (req, res) => {
                 noMatch=true;
             res.render("home", {
                 prods: allProducts,
+                pageHeader: 'Search result for: '+req.query.product,
                 pageTitle: req.query.product,
                 isLoggedIn: req.session.isLoggedIn,
                 noMatch:noMatch
             });
         });
     }
+    else if(req.query.category) {
+        const category = req.query.category;
+        Product.find({'category': category})
+            .then(product => {
+                res.render('home', {
+                    prods: product,
+                    pageHeader: 'Category: '+category,
+                    pageTitle: category,
+                    isLoggedIn: req.session.isLoggedIn
+                });
+            })
+            .catch(err => console.log(err));
+    }
     else{
         Product.find()
             .then(products => {
                 res.render('home', {
                     prods: products,
+                    pageHeader: 'Recently Uploaded',
                     pageTitle: 'ShopSaga',
                     isLoggedIn: req.session.isLoggedIn
                 })
@@ -81,20 +96,6 @@ exports.getProduct = (req, res) => {
             res.render('product', {
                 product: product,
                 pageTitle: product.title,
-                isLoggedIn: req.session.isLoggedIn
-            });
-        })
-        .catch(err => console.log(err));
-};
-
-exports.getCategoryPage = (req, res) => {
-    const category = req.params.category;
-    Product.find({'category': category})
-        .then(product => {
-            res.render('category', {
-                prods: product,
-                category: category,
-                pageTitle: category,
                 isLoggedIn: req.session.isLoggedIn
             });
         })

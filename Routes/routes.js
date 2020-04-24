@@ -20,8 +20,6 @@ router.get('/signup', userController.getUserSignup);
 
 router.get('/product/:productId', productController.getProduct);
 
-router.get('/category/:category', productController.getCategoryPage);
-
 router.use(errorController.get404);
 
 module.exports = router;
