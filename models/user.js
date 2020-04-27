@@ -33,11 +33,11 @@ const userSchema = new Schema ({
     state: {
         type: String
     },
-    products: [
-        {
-            productId: {type: Schema.Types.ObjectId, ref: 'Product', required: true}
-        }        
-    ]
+    products: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'Product', 
+        required: true
+    }]
 });
 
 module.exports = mongoose.model('User', userSchema)

@@ -12,7 +12,7 @@
           <a class="nav-link" href="/?category=accessory">Accessories</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/?category=hobbies">Hobbies</a>
+          <a class="nav-link" href="?category=hobbies">Hobbies</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="/?category=books">Books</a>
@@ -30,6 +30,18 @@
     <main>
             <div class="container-fluid">
               <h4 class="category-text"><%= pageHeader %></h4>
+
+              <form class="form-inline filter-form" method="GET" action="/">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter</label>
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="college">
+                  <option selected>Select Colleges...</option>
+                  <% for(var i=0;i<colleges.length;i++) { %>
+                    <option value=<%= colleges[i] %> > <%=colleges[i]%> </option>
+                  <% } %>
+                  </select>
+                <button type="submit" class="btn btn-primary my-1">Submit</button>
+              </form>
+
               <% for(let i=0; i<prods.length; i=i+5) { %>
                 <div class="row">
                   <% for(let j=i; j<Math.min(prods.length, i+5); j++) { %>

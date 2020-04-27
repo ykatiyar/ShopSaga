@@ -31,10 +31,17 @@ const productSchema = new Schema( {
         type: String,
         required: true
     },
+    college: {
+        type: String,
+        // required: true
+    },
     date_posted: {
         type: Date,
         required: true 
     }
 });
+
+
+
 
 module.exports = mongoose.model('Product', productSchema);

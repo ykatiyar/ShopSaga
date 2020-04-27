@@ -1,35 +1,69 @@
 const Product = require('../models/product');
+const User = require('../models/user');
+
 
 exports.getProductPage = (req, res) => {
+    
+    var colleges=[];
+    Product.find().distinct('college', function(error, col) {
+        colleges = col
+    });
+
     if(req.query.product) {
-        const regex = new RegExp(escapeRegex(req.query.product), 'gi');
-        let noMatch=false;
+        const rgx = new RegExp(escapeRegex(req.query.product), 'gi');
+        let category = new RegExp('[A-Za-z]*');
+        let college = new RegExp('[A-Za-z]*');
+        if(req.query.category) {
+            category = req.query.category;
+        }
+        if(req.query.college) {
+            college = req.query.college;
+        }
+
         Product.find({
                 $or: [
-                    {name: regex},
-                    {description: regex},
-                    {category: regex}
+                    {name: rgx },
+                    {description: rgx},
+                    {category: rgx}
                 ]
-            }, function(err, allProducts){
+            , 'category': { $regex:  category } , 'college': { $regex:  college } }, function(err, allProducts){
             if(err || !allProducts.length)
-                noMatch=true;
+                return err;     //flash
             res.render("home", {
-                prods: allProducts,
+                prods: allProducts.reverse(),
                 pageHeader: 'Search result for: '+req.query.product,
                 pageTitle: req.query.product,
-                isLoggedIn: req.session.isLoggedIn,
-                noMatch:noMatch
+                colleges: colleges,
+                isLoggedIn: req.session.isLoggedIn
             });
-        });
+        }).catch(err => {
+            console.log(err);
+        })
     }
     else if(req.query.category) {
         const category = req.query.category;
         Product.find({'category': category})
             .then(product => {
                 res.render('home', {
-                    prods: product,
+                    prods: product.reverse(),
                     pageHeader: 'Category: '+category,
+                    colleges: colleges,
                     pageTitle: category,
+                    isLoggedIn: req.session.isLoggedIn
+                });
+            })
+            .catch(err => console.log(err));
+    }
+    else if(req.query.college) {
+        const college = req.query.college;
+        
+        Product.find({'college': college})
+            .then(product => {
+                res.render('home', {
+                    prods: product.reverse(),
+                    pageHeader: 'College: ' + college,
+                    colleges: colleges,
+                    pageTitle: college,
                     isLoggedIn: req.session.isLoggedIn
                 });
             })
@@ -39,7 +73,8 @@ exports.getProductPage = (req, res) => {
         Product.find()
             .then(products => {
                 res.render('home', {
-                    prods: products,
+                    prods: products.reverse(),
+                    colleges: colleges,
                     pageHeader: 'Recently Uploaded',
                     pageTitle: 'ShopSaga',
                     isLoggedIn: req.session.isLoggedIn
@@ -72,6 +107,7 @@ exports.postAddProduct = (req, res) => {
             price: price,
             description: description,
             userId: req.user._id,
+            college: req.user.college,
             condition: condition,
             category: category,
             image_url: image_url,
@@ -79,6 +115,11 @@ exports.postAddProduct = (req, res) => {
         });     
         product.save()
             .then(result => {
+                User.update({ _id: req.user._id},
+                    { "$push": { "products": result._id }}
+                ).exec(function(err, pro) {
+                    if(err) throw err;
+                }); 
                 res.redirect('/');
             })
             .catch(err => {
