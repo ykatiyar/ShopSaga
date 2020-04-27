@@ -16,3 +16,9 @@ Todo
     cloudinary addons
     multiple file upload
     appending query
+    Phone verifiacion
+    email verification
+    reset password
+    item page front end issue
+    pagination
+

@@ -7,6 +7,7 @@ const User = require('./models/user');
 const routes = require('./Routes/routes');
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const flash = require('connect-flash');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 var multer = require('multer');
@@ -36,6 +37,8 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:process.env.MONGODB_SECRET, resave: false, saveUninitialized: false, store: store}));
 
+app.use(flash());
+
 app.use((req, res, next) => {
     if(!req.session.user) {
         return next();
@@ -47,6 +50,13 @@ app.use((req, res, next) => {
         })
         .catch(err => console.log(err));
 });
+
+app.use((req, res, next) => {
+    res.locals.errorMessage = '';
+    res.locals.successMessage = '';
+    res.locals.otherMessage = '';
+    next();
+})
 
 app.use(routes);
 

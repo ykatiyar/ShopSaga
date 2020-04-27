@@ -8,6 +8,12 @@ exports.getProductPage = (req, res) => {
     Product.find().distinct('college', function(error, col) {
         colleges = col
     });
+    let errorMessage = req.flash('error');
+        if(errorMessage.length > 0) {
+            errorMessage = errorMessage[0];
+        } else {
+            errorMessage = null;
+        }
 
     if(req.query.product) {
         const rgx = new RegExp(escapeRegex(req.query.product), 'gi');
@@ -27,14 +33,22 @@ exports.getProductPage = (req, res) => {
                     {category: rgx}
                 ]
             , 'category': { $regex:  category } , 'college': { $regex:  college } }, function(err, allProducts){
-            if(err || !allProducts.length)
-                return err;     //flash
+            if(err){
+                console.log(err)
+                return err;     
+            }
+            if(allProducts.length<1) {
+                req.flash("error", "No product available");
+                return res.redirect("back");
+            }            
             res.render("home", {
                 prods: allProducts.reverse(),
                 pageHeader: 'Search result for: '+req.query.product,
                 pageTitle: req.query.product,
                 colleges: colleges,
-                isLoggedIn: req.session.isLoggedIn
+                isLoggedIn: req.session.isLoggedIn,
+                errorMessage: errorMessage,
+
             });
         }).catch(err => {
             console.log(err);
@@ -42,14 +56,20 @@ exports.getProductPage = (req, res) => {
     }
     else if(req.query.category) {
         const category = req.query.category;
-        Product.find({'category': category})
+        let college = new RegExp('[A-Za-z]*');
+        if(req.query.college) {
+            college = req.query.college;
+        }
+        Product.find({'category': category, 'college': college})
             .then(product => {
                 res.render('home', {
                     prods: product.reverse(),
                     pageHeader: 'Category: '+category,
                     colleges: colleges,
                     pageTitle: category,
-                    isLoggedIn: req.session.isLoggedIn
+                    isLoggedIn: req.session.isLoggedIn,
+                    errorMessage: errorMessage,
+
                 });
             })
             .catch(err => console.log(err));
@@ -64,7 +84,9 @@ exports.getProductPage = (req, res) => {
                     pageHeader: 'College: ' + college,
                     colleges: colleges,
                     pageTitle: college,
-                    isLoggedIn: req.session.isLoggedIn
+                    isLoggedIn: req.session.isLoggedIn,
+                    errorMessage: errorMessage,
+
                 });
             })
             .catch(err => console.log(err));
@@ -77,7 +99,8 @@ exports.getProductPage = (req, res) => {
                     colleges: colleges,
                     pageHeader: 'Recently Uploaded',
                     pageTitle: 'ShopSaga',
-                    isLoggedIn: req.session.isLoggedIn
+                    isLoggedIn: req.session.isLoggedIn,
+                    errorMessage: errorMessage,
                 })
             })
             .catch(err => {
@@ -120,6 +143,8 @@ exports.postAddProduct = (req, res) => {
                 ).exec(function(err, pro) {
                     if(err) throw err;
                 }); 
+
+                req.flash('other', 'Posted!!');
                 res.redirect('/');
             })
             .catch(err => {

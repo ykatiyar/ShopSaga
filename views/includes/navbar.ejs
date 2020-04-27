@@ -28,3 +28,18 @@
       </ul>
     </div>
   </nav>
+  <% if(errorMessage) {%>
+    <div class="alert alert-dark" role="alert">
+      <%= errorMessage %>
+    </div>
+  <% } %>
+  <% if(successMessage) {%>
+    <div class="alert alert-success" role="alert">
+      <%= successMessage %>
+    </div>
+  <% } %>
+  <% if(otherMessage) {%>
+    <div class="alert alert-info" role="alert">
+      <%= otherMessage %>
+    </div>
+  <% } %>

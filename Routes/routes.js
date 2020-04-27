@@ -3,22 +3,25 @@ const router = express.Router();
 const userController = require('../controller/user');
 const errorController = require('../controller/404');
 const productController = require('../controller/product');
+const isAuth = require('../middleware/isAuth');
+const notLogged = require('../middleware/notLogged');
+
 
 router.get('/', productController.getProductPage);
 
-router.post('/post', productController.postAddProduct);
+router.post('/post', isAuth, productController.postAddProduct);
 
-router.get('/post', productController.getAddProduct);
+router.get('/post', isAuth, productController.getAddProduct);
 
-router.get('/login', userController.getUserLogin);
+router.get('/login', notLogged, userController.getUserLogin);
 
-router.post('/login', userController.postUserLogin);
+router.post('/login', notLogged, userController.postUserLogin);
 
-router.get('/logout', userController.postUserLogout);
+router.get('/logout', isAuth, userController.postUserLogout);
 
-router.get('/signup', userController.getUserSignup);
+router.get('/signup', notLogged, userController.getUserSignup);
 
-router.post('/signup', userController.postUserSignup);
+router.post('/signup', notLogged, userController.postUserSignup);
 
 router.get('/product/:productId', productController.getProduct);
 

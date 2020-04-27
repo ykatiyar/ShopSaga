@@ -2,9 +2,23 @@ const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 exports.getUserLogin = (req, res) => {
+    let errorMessage = req.flash('error');
+    if(errorMessage.length > 0) {
+        errorMessage = errorMessage[0];
+    } else {
+        errorMessage = null;
+    }
+    let successMessage = req.flash('success');
+    if(successMessage.length > 0) {
+        successMessage = successMessage[0];
+    } else {
+        successMessage = null;
+    }
     res.render('auth/login.ejs',{
         pageTitle:'Login',
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        errorMessage: errorMessage,
+        successMessage: successMessage
     });
 }
 
@@ -14,6 +28,7 @@ exports.postUserLogin = (req, res) => {
     User.findOne({email: email})
         .then(user => {
             if(!user) {
+                req.flash('error', 'Invalid email or password.');
                 return res.redirect('/login');
             }
             bcrypt
@@ -27,6 +42,7 @@ exports.postUserLogin = (req, res) => {
                             res.redirect('/');
                         });
                     }
+                    req.flash('error', 'Invalid email or password.');
                     res.redirect('/login');
 
                 })
@@ -34,9 +50,16 @@ exports.postUserLogin = (req, res) => {
 }
 
 exports.getUserSignup = (req, res) => {
+    let errorMessage = req.flash('error');
+    if(errorMessage.length > 0) {
+        errorMessage = errorMessage[0];
+    } else {
+        errorMessage = null;
+    }
     res.render('auth/signup.ejs', {
         pageTitle:'Signup',
-        isLoggedIn: req.session.isLoggedIn
+        isLoggedIn: req.session.isLoggedIn,
+        errorMessage: errorMessage
     });
 }
 
@@ -46,6 +69,7 @@ exports.postUserSignup = (req, res) => {
     User.findOne({email: email})
         .then(userDoc => {
             if(userDoc) {
+                req.flash('error', 'Email already exists!!');
                 return res.redirect('/signup');
             }
             return bcrypt.hash(password, 12)
@@ -63,7 +87,7 @@ exports.postUserSignup = (req, res) => {
                 return user.save();
             })
             .then(result => {
-                console.log(result);
+                req.flash('success', 'Account created, please login.');
                 res.redirect('/login');
             });
         })
