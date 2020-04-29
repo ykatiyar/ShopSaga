@@ -1,4 +1,5 @@
-  <nav class="navbar .navbar-fixed-bottom navbar-expand-lg navbar-dark bg-dark">
+ 
+ <nav class="navbar .navbar-fixed-bottom navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="/">ShopSaga</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,6 +14,9 @@
         <% if(isLoggedIn) { %>
         <li class="nav-item">
           <a class="nav-link" href="/post"><i class="fas fa-camera"></i> Sell with Us!</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/profile/<%= user_id %>">Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/logout">Logout</a>

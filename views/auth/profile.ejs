@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>User Profile Page</title>
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/auth/profile.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="/script/profile.js"></script>
+</head>
+
+<body>
+    <%- include('../includes/navbar.ejs') %>
+    <div class="container">
+		<div class="row profile">
+			<div class="col-md-3">
+				<div class="profile-sidebar">
+					<!-- SIDEBAR USERPIC -->
+					<div class="profile-userpic">
+						<img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="">
+					</div>
+					<!-- END SIDEBAR USERPIC -->
+					<!-- SIDEBAR USER TITLE -->
+					<div class="profile-usertitle">
+						<div class="profile-usertitle-name">
+							<%= user.name %>
+						</div>
+						<div class="profile-usertitle-job">
+							Member Since <br>
+							<%= user.date_joined.getDate()%> <%= new Intl.DateTimeFormat('en-US', { month: 'long'}).format(user.date_joined)%>
+						</div>
+					</div>
+					<!-- END SIDEBAR USER TITLE -->
+
+					<!-- SIDEBAR BUTTONS -->
+					<div class="profile-userbuttons">
+						<button type="button" href="chat.html" class="btn btn-info btn-sm">Message</button>
+					</div>
+					<!-- END SIDEBAR BUTTONS -->
+
+					<!--  CONTACT DETAILS START -->
+					<div class="contact-details">
+						<span class="phone">**********</span>
+						<a href="#">Show number</a>
+						<br>
+						<span class="email"><%= user.email %></span>
+						<a href="#">Show email</a>
+					</div>
+					<!--  CONTACT DETAILS END -->
+					<!-- SIDEBAR MENU -->
+					<div class="profile-usermenu" id="nav-id">
+						<ul class="nav">
+							<li class="lst active" onclick="changeTab()">
+								<a href="#">
+								<i class="glyphicon glyphicon-home"></i>
+								Overview </a>
+							</li>
+							<li class="lst" onclick="changeTab()">
+								<a href="#">
+								<i class="glyphicon glyphicon-flag"></i>
+								Help </a>
+							</li>
+							<li class="lst" onclick="changeTab()">
+								<a href="resetpass.html">
+								<i class="glyphicon glyphicon-lock"></i>
+								Change Password </a>
+							</li>
+							<li class="lst" onclick="changeTab(); SignUpForNewsletter();">
+								<a href="#">
+								<i class="glyphicon glyphicon-trash"></i>
+								Delete Account </a>
+							</li>
+						</ul>
+						
+						
+						
+					</div>
+					<!-- END MENU -->
+				</div>
+			</div>
+			<div class="grid-container">
+                <% for(let j=0; j<prods.length; j++) { %>
+				<div class="prod-container" id="p1">
+					<div>
+						<img src=<%= prods[j].image_url%>>
+                    </div>
+                    <%= prods[j].name %>
+					<div class="price modify">
+						<h4>₹<%= prods[j].price %></h4>
+						<!-- <i class="glyphicon glyphicon-trash delprod"></i> -->
+						<a href="">Delete Account</a>
+						<button>Modify Details</button>
+					</div>
+				</div>
+				<% } %>
+			</div>
+		</div>
+		<div id="page_screen">&nbsp;</div>
+		<div id="panel" style="display:none;">
+			<div class="form-background">
+				<h1 class="active">Are you sure?</h1>
+				<div class="delete-container">
+					<div class="container">
+						<div class="col-md-8">
+							<button id="bCancel" name="bCancel" class="btn btn-danger confirm-btn">Confirm</button>
+							<button id="bGodkend" name="bGodkend" class="btn btn-success closepop" onclick="closePopLogin()">Cancel</button>
+						</div>
+					</div>     
+				</div>
+			</div>
+		</div>
+    <%- include('../includes/end.ejs') %>

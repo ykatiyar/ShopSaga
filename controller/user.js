@@ -63,6 +63,9 @@ exports.getUserSignup = (req, res) => {
     });
 }
 
+
+
+
 exports.postUserSignup = (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -78,7 +81,7 @@ exports.postUserSignup = (req, res) => {
                     name: 'xyz',
                     email: email,
                     password: hashedPassword,
-                    cell: req.body.cell,
+                    phone: req.body.cell,
                     date_joined: new Date(),
                     college: req.body.college,
                     city: req.body.city,
@@ -102,3 +105,133 @@ exports.postUserLogout = (req, res, next) => {
         res.redirect('/');
     });
 };
+
+
+exports.checkVerification = function(req, res) {
+    let user = {};
+
+    // Load user model
+    User.findById(req.user._id, function(err, doc) {
+        if (err || !doc) {
+            return die('User not found for this ID.');
+        }
+
+        // If we find the user, let's validate the token they entered
+        user = doc;
+        user.verifyAuthyToken(req.body.code, postVerify);
+    });
+
+    // Handle verification res
+    function postVerify(err) {
+        if (err) {
+            return die('The token you entered was invalid - please retry.');
+        }
+
+        // If the token was valid, flip the bit to validate the user account
+        user.verified = true;
+        user.save(postSave);
+    }
+
+    // after we save the user, handle sending a confirmation
+    function postSave(err) {
+        if (err) {
+            return die('There was a problem validating your account '
+                + '- please enter your token again.');
+        }
+
+        // Send confirmation text message
+        const message = 'You did it! Signup complete :)';
+        user.sendMessage(message, function() {
+          // show success page
+          req.flash('successes', message);
+          res.redirect('/');
+        }, function(err) {
+          req.flash('error', 'You are signed up, but '
+              + 'we could not send you a message. Our bad :(');
+        });
+    }
+
+    // respond with an error
+    function die(message) {
+        req.flash('error', message);
+        res.redirect('back');
+    }
+};
+
+
+
+// Resend a code if it was not received
+exports.sendVerification = function(req, res) {
+    // Load user model
+    User.findById(req.user._id, function(err, user) {
+        if (err || !user) {
+            return die('User not found for this ID.');
+        }
+
+        // If we find the user, let's send them a new code
+        user.sendAuthyToken(postSend);
+        // res.render('auth/verification', {
+        //     pageTitle:'Verification',
+        //     isLoggedIn: req.session.isLoggedIn
+        // });
+    });
+
+    // Handle send code res
+    function postSend(err) {
+        if (err) {
+            return die('There was a problem sending you the code - please '+ 'retry.');
+        }
+        req.flash('success', 'Code sent!');
+        res.redirect('back');
+    }
+
+    // respond with an error
+    function die(message) {
+        req.flash('error', message);
+        res.redirect('back');
+    }
+};
+
+
+exports.showUser = function(req, res, next) {
+    // Load user model
+    User.findById(req.params.id, function(err, user) {
+        if (err || !user) {
+            // 404
+            return next();
+        }
+
+        res.render('users/show', {
+            title: 'Hi there ' + user.fullName + '!',
+            user: user,
+            // any error
+            error: req.flash('error'),
+            // any success messages
+            successes: req.flash('successes'),
+        });
+    });
+};
+
+
+
+
+
+exports.getUserProfile = (req, res) => {
+    let errorMessage = req.flash('error');
+    if(errorMessage.length > 0) {
+        errorMessage = errorMessage[0];
+    } else {
+        errorMessage = null;
+    }
+    User.findById(req.params.id)
+        .populate('products')
+        .then(user => {
+            res.render('auth/profile', {
+                pageTitle:'Profile',
+                isLoggedIn: req.session.isLoggedIn,
+                user: user,
+                prods: user.products,
+                errorMessage: errorMessage
+            });
+    })    
+}

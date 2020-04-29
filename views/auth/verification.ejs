@@ -1,0 +1,25 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/auth/form.css">
+</head>
+
+<body>
+    <%- include('../includes/navbar.ejs') %>
+        <div id="newsletter_panel"  class="newsletter_panel_login">
+            <div class="form-background">
+                <h1 class="active">Verify Phone Number</h1>
+                <div class="container">
+                    <form action="/verify" class="login-form" method="POST">
+                        <div class="txtb">
+                            <label for="email"> Verify Code</label>
+                            <input class="input100" name="code" type="text" required>
+                            <span class="focus-input100"></span>
+                        </div>                      
+                        <input type="submit" class="logbtn" value="Verify Token">   
+                        <div class="bottom-text">
+                            <a class="fpswd" href="/verify">Resend My Code</a>
+                        </div>     
+                    </form>           
+                </div>
+            </div>
+        </div>
+ <%- include('../includes/end.ejs') %>
