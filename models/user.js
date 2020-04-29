@@ -24,6 +24,8 @@ const userSchema = new Schema ({
         default: false,
     },
     authyId: String,
+    resetToken: String,
+    resetTokenExpiration: Date,
     date_joined: {
         type: Date,
         required: true

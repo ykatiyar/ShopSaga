@@ -29,7 +29,11 @@ router.get('/logout', isAuth, userController.postUserLogout);
 
 router.get('/resetpass', userController.getUserReset);
 
-// router.get('/changepass', userController.getUserPassword);
+router.post('/resetpass', userController.postUserReset);
+
+router.get('/resetpass/:token', userController.getNewPassword);
+
+router.post('/newpass', userController.postNewPassword);
 
 router.get('/signup', notLogged, userController.getUserSignup);
 

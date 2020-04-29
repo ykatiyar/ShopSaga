@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.0.1",
     "authy": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.21.0",
@@ -22,6 +23,8 @@
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.9",
     "multer": "^1.4.2",
+    "nodemailer": "^6.4.6",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.2"
   }
 }
