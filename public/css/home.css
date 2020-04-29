@@ -9,7 +9,7 @@
 
 .container-fluid {
   margin-top: 5vh;
-  width: 90vw;
+  width: 80vw;
 }
 
 .container-fluid .category-text {
@@ -22,7 +22,8 @@
 }
 
 .container-fluid .row .col-sm {
-  max-width: 45vw;
+  max-width: 360px;
+  /* margin: 5px; */
 }
 
 .container-fluid .row .col-sm .product {

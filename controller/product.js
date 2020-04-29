@@ -110,10 +110,16 @@ exports.getProductPage = (req, res) => {
 }
 
 exports.getAddProduct = (req, res) => {
-    res.render('add-product', {
-        pageTitle:'Post Add',
-        isLoggedIn: req.session.isLoggedIn
-    });
+    if(req.user.verified){
+        res.render('add-product', {
+            pageTitle:'Post Add',
+            isLoggedIn: req.session.isLoggedIn
+        });
+    }
+    else {
+        req.flash('error', 'Please verify your phone number');
+        res.redirect('/profile/'+req.user._id)
+    }
 }
 
 exports.postAddProduct = (req, res) => {
@@ -176,3 +182,58 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY, 
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
+
+
+exports.getUpdateProduct = (req, res) => {
+    const productID = req.params.id;
+    Product.findById(productID)
+        .then(product => {
+            if(product) {
+                res.render('update-product', {
+                    pageTitle:'Update Add',
+                    isLoggedIn: req.session.isLoggedIn,
+                    product: product
+                });
+            }
+            else {
+                req.flash('error', 'No Product Found!');
+                res.redirect('/profile/'+req.user._id);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+exports.postUpdateProduct = (req, res) => {
+    const prodID = req.params.id;
+    const updatedName = req.body.name;
+    const updatedPrice = req.body.price;
+    const updatedDescription = req.body.description;
+    Product.findById(prodID)
+        .then(product => {
+            product.name = updatedName;
+            product.price = updatedPrice;
+            product.description = updatedDescription;
+            return product.save();
+        })
+        .then(result => {
+            req.flash('success', 'Product updated sucessfully!!');
+            res.redirect('/profile/'+req.user._id);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+exports.getDeleteProduct = (req, res) => {
+    const prodID = req.params.id;
+    Product.findByIdAndRemove(prodID)
+        .then(() => {
+            req.flash('success', 'Product deleted sucessfully!!');
+            res.redirect('back');
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}

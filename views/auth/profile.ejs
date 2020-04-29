@@ -57,12 +57,12 @@
 								Overview </a>
 							</li>
 							<li class="lst" onclick="changeTab()">
-								<a href="#">
+								<a href="/verify">
 								<i class="glyphicon glyphicon-flag"></i>
-								Help </a>
+								Verify Account </a>
 							</li>
 							<li class="lst" onclick="changeTab()">
-								<a href="resetpass.html">
+								<a href="/resetpass">
 								<i class="glyphicon glyphicon-lock"></i>
 								Change Password </a>
 							</li>
@@ -88,9 +88,8 @@
                     <%= prods[j].name %>
 					<div class="price modify">
 						<h4>₹<%= prods[j].price %></h4>
-						<!-- <i class="glyphicon glyphicon-trash delprod"></i> -->
-						<a href="">Delete Account</a>
-						<button>Modify Details</button>
+						<a href="/modify/<%= prods[j]._id %>">Modify Product</a>
+						<a href="/delete/<%= prods[j]._id %>">Delete Product</a>
 					</div>
 				</div>
 				<% } %>

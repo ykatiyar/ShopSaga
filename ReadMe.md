@@ -8,17 +8,17 @@
 
 
 Todo 
-    <!-- Items not found on search -->
-    <!-- Flash  -->
-        Profile
-        Update and delete
     Chat
     cloudinary addons
     multiple file upload
     appending query
-        Phone verifiacion
-        email verification
-        reset password
     item page front end issue
     pagination
 
+    reset
+    restriction
+        owner modificatin restriction
+    
+
+    css 
+        profile - product name, button styling, navbar

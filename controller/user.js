@@ -78,7 +78,7 @@ exports.postUserSignup = (req, res) => {
             return bcrypt.hash(password, 12)
             .then(hashedPassword => {
                 const user = new User({
-                    name: 'xyz',
+                    name: req.body.name,
                     email: email,
                     password: hashedPassword,
                     phone: req.body.cell,
@@ -107,54 +107,125 @@ exports.postUserLogout = (req, res, next) => {
 };
 
 
+
+
+
+exports.getUserProfile = (req, res) => {
+    let errorMessage = req.flash('error');
+    if(errorMessage.length > 0) {
+        errorMessage = errorMessage[0];
+    } else {
+        errorMessage = null;
+    }
+    let successMessage = req.flash('success');
+    if(successMessage.length > 0) {
+        successMessage = successMessage[0];
+    } else {
+        successMessage = null;
+    }
+    User.findById(req.params.id)
+        .populate('products')
+        .then(user => {
+            if(user){
+                res.render('auth/profile', {
+                    pageTitle:'Profile',
+                    isLoggedIn: req.session.isLoggedIn,
+                    user: user,
+                    prods: user.products,
+                    errorMessage: errorMessage,
+                    successMessage: successMessage
+                });
+            }
+            else {
+                req.flash('error', "No such account exists!!")
+                res.redirect('/');
+            }
+    })    
+}
+
+
+
+exports.getUserReset = (req, res) => {
+    let errorMessage = req.flash('error');
+    if(errorMessage.length > 0) {
+        errorMessage = errorMessage[0];
+    } else {
+        errorMessage = null;
+    }
+    let successMessage = req.flash('success');
+    if(successMessage.length > 0) {
+        successMessage = successMessage[0];
+    } else {
+        successMessage = null;
+    }
+    res.render('auth/reset-password', {
+        pageTitle:'Reset Password',
+        isLoggedIn: req.session.isLoggedIn,
+        errorMessage: errorMessage,
+        successMessage: successMessage,
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exports.checkVerification = function(req, res) {
     let user = {};
-
-    // Load user model
     User.findById(req.user._id, function(err, doc) {
         if (err || !doc) {
             return die('User not found for this ID.');
         }
-
-        // If we find the user, let's validate the token they entered
         user = doc;
         user.verifyAuthyToken(req.body.code, postVerify);
     });
-
-    // Handle verification res
     function postVerify(err) {
         if (err) {
             return die('The token you entered was invalid - please retry.');
         }
 
-        // If the token was valid, flip the bit to validate the user account
         user.verified = true;
         user.save(postSave);
     }
 
-    // after we save the user, handle sending a confirmation
     function postSave(err) {
         if (err) {
             return die('There was a problem validating your account '
                 + '- please enter your token again.');
         }
 
-        // Send confirmation text message
-        const message = 'You did it! Signup complete :)';
-        user.sendMessage(message, function() {
-          // show success page
-          req.flash('successes', message);
-          res.redirect('/');
-        }, function(err) {
-          req.flash('error', 'You are signed up, but '
-              + 'we could not send you a message. Our bad :(');
-        });
+        req.flash('success', 'You did it! Verification complete :)');
+        res.redirect('/profile/'+req.user._id);
     }
 
-    // respond with an error
     function die(message) {
         req.flash('error', message);
-        res.redirect('back');
+        res.redirect('/verify');
     }
 };
 
@@ -163,26 +234,41 @@ exports.checkVerification = function(req, res) {
 // Resend a code if it was not received
 exports.sendVerification = function(req, res) {
     // Load user model
-    User.findById(req.user._id, function(err, user) {
-        if (err || !user) {
-            return die('User not found for this ID.');
-        }
 
-        // If we find the user, let's send them a new code
-        user.sendAuthyToken(postSend);
-        // res.render('auth/verification', {
-        //     pageTitle:'Verification',
-        //     isLoggedIn: req.session.isLoggedIn
-        // });
-    });
+    User.findById(req.user._id)
+        .then(user => {
+            if (!user) {
+                return die('User not found for this ID.');
+            }
+            if(req.user.verified){
+                req.flash('success', 'You are already verified');
+                return res.redirect('/profile/'+req.user._id)
+            }
+    
+            // If we find the user, let's send them a new code
+            return user.sendAuthyToken(postSend)
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
     // Handle send code res
     function postSend(err) {
         if (err) {
             return die('There was a problem sending you the code - please '+ 'retry.');
         }
-        req.flash('success', 'Code sent!');
-        res.redirect('back');
+
+        let errorMessage = req.flash('error');
+        if(errorMessage.length > 0) {
+            errorMessage = errorMessage[0];
+        } else {
+            errorMessage = null;
+        }
+        res.render('auth/verification', {
+            pageTitle:'Verification',
+            isLoggedIn: req.session.isLoggedIn,
+            errorMessage: errorMessage
+        });
     }
 
     // respond with an error
@@ -216,22 +302,3 @@ exports.showUser = function(req, res, next) {
 
 
 
-exports.getUserProfile = (req, res) => {
-    let errorMessage = req.flash('error');
-    if(errorMessage.length > 0) {
-        errorMessage = errorMessage[0];
-    } else {
-        errorMessage = null;
-    }
-    User.findById(req.params.id)
-        .populate('products')
-        .then(user => {
-            res.render('auth/profile', {
-                pageTitle:'Profile',
-                isLoggedIn: req.session.isLoggedIn,
-                user: user,
-                prods: user.products,
-                errorMessage: errorMessage
-            });
-    })    
-}
