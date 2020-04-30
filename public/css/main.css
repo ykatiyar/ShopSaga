@@ -1,4 +1,6 @@
-
+body {
+    margin-bottom: 150px;
+}
 .navbar {
     padding-left: 15vw;
     padding-right: 15vw; 
@@ -49,4 +51,11 @@
         height:0;
         visibility:hidden;
     }
+}
+
+footer {
+    /* height: 100px; */
+    /* padding: 20px; */
+    /* padding-right: 10vw; */
+    /* width: 100%; */
 }

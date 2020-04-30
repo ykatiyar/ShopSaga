@@ -10,15 +10,12 @@
 Todo 
     Chat
     cloudinary addons
-    multiple file upload
     appending query
     item page front end issue
     pagination
 
-    reset
     restriction
         owner modificatin restriction
-    
 
     css 
         profile - product name, button styling, navbar
@@ -29,3 +26,6 @@ Todo
 Cloudinary is an end-to-end image management solution for your website and mobile apps. Cloudinary covers everything from image uploads, storage, manipulations, optimizations to delivery.
 You can easily upload images to the cloud, automatically perform smart image manipulations without installing any complex software. All your images are then seamlessly delivered through a fast CDN, optimized and using industry best practices.
 Cloudinary offers comprehensive APIs and administration capabilities and is easy to integrate with new and existing web and mobile applications.
+
+
+Automatically moderate all photos uploaded to your application using WebPurify. Prevent adult-oriented and inappropriate images from creeping into your websites or mobile applications. Use Cloudinary's upload and delivery APIs knowing that human moderation experts approved your images for user viewing.

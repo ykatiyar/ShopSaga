@@ -29,7 +29,7 @@
     <!-- Product Display -->
     <main>
             <div class="container-fluid">
-              <h4 class="category-text"><%= pageHeader %></h4>
+              <h4 class="category-text"><%= pageHeader.charAt(0).toUpperCase() + pageHeader.slice(1) %></h4>
 
               <form class="form-inline filter-form" method="GET" action="/">
                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter</label>

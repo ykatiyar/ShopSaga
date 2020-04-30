@@ -67,7 +67,7 @@ exports.getProductPage = (req, res) => {
             .then(product => {
                 res.render('home', {
                     prods: product.reverse(),
-                    pageHeader: 'Category: '+category,
+                    pageHeader: 'Category: '+category.charAt(0).toUpperCase() + category.slice(1),
                     colleges: colleges,
                     pageTitle: category,
                     isLoggedIn: req.session.isLoggedIn,
@@ -174,11 +174,15 @@ exports.getProduct = (req, res) => {
     Product.findById(prodID)
         .populate('userId')
         .then(product => {
-            res.render('product', {
-                product: product,
-                pageTitle: product.title,
-                isLoggedIn: req.session.isLoggedIn
-            });
+            Product.find({category: product.category})
+                .then(prods => {
+                    res.render('product', {
+                        product: product,
+                        pageTitle: product.name,
+                        isLoggedIn: req.session.isLoggedIn,
+                        prods: prods
+                    });
+                })
         })
         .catch(err => console.log(err));
 };

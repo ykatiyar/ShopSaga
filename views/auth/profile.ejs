@@ -1,30 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>User Profile Page</title>
+	<title><%= user.name %></title>
+	<link rel="icon" type="image/png" href="/images/logo.png">
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/css/auth/profile.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="/script/profile.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- <script src="userpage.js"></script> -->
+	<link rel="stylesheet" href="/css/auth/profile.css" >
 </head>
-
 <body>
-    <%- include('../includes/navbar.ejs') %>
-    <div class="container">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+		  <!-- Brand and toggle get grouped for better mobile display -->
+		  <div class="navbar-header">
+			<a class="navbar-brand" href="/">ShopSaga</a>
+		  </div>
+	  
+		  <!-- Collect the nav links, forms, and other content for toggling -->
+		  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+			<% if(isLoggedIn) { %>
+			  <li class="nav-item">
+				<button type="button" onclick="location.href='/post'" class="btn btn-default navbar-btn btn-sell"><span class="glyphicon glyphicon-camera"></span>Sell with Us!</button>
+			  </li>
+			  <li class="nav-item">
+				<button type="button" onclick="location.href='/profile/<%= user._id %>'" class="btn btn-default navbar-btn">Profile</button>
+			  </li>
+			  <li class="nav-item">
+				<button type="button" onclick="location.href='/logout'" class="btn btn-default navbar-btn">Logout</button>
+			  </li>
+			  <% } else {%>
+				<li class="nav-item">
+					<button type="button" onclick="location.href='/login'" class="btn btn-default navbar-btn">Login</button>
+				</li>
+				<li class="nav-item">
+					<button type="button" onclick="location.href='/signup'" class="btn btn-default navbar-btn">Signup</button>
+				</li>
+
+			  <% } %>
+			</ul>
+		  </div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	  </nav>
+	<div class="container">
 		<div class="row profile">
 			<div class="col-md-3">
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<img src="https://static.change.org/profile-img/default-user-profile.svg" class="img-responsive" alt="">
+						<img src="/images/avatar.png" class="img-responsive" alt="">
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
 					<div class="profile-usertitle">
 						<div class="profile-usertitle-name">
-							<%= user.name %>
+							<%= user.name%>
 						</div>
 						<div class="profile-usertitle-job">
 							Member Since <br>
@@ -35,31 +67,36 @@
 
 					<!-- SIDEBAR BUTTONS -->
 					<div class="profile-userbuttons">
-						<button type="button" href="chat.html" class="btn btn-info btn-sm">Message</button>
+						<button type="button" href="/" class="btn btn-info btn-sm">Message</button>
 					</div>
 					<!-- END SIDEBAR BUTTONS -->
 
 					<!--  CONTACT DETAILS START -->
 					<div class="contact-details">
-						<span class="phone">**********</span>
-						<a href="#">Show number</a>
-						<br>
-						<span class="email"><%= user.email %></span>
-						<a href="#">Show email</a>
+						<ul class="contacts-list">
+							<li>
+								<i class="fa fa-phone" aria-hidden="true"></i>
+								<span class="phone"><%= user.phone%></span>
+							</li>
+							<li>
+								<i class="fa fa-envelope" aria-hidden="true"></i>
+								<span class="phone"><%= user.email%></span>
+							</li>
+						</ul>
 					</div>
 					<!--  CONTACT DETAILS END -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu" id="nav-id">
 						<ul class="nav">
 							<li class="lst active" onclick="changeTab()">
-								<a href="#">
+								<a href="">
 								<i class="glyphicon glyphicon-home"></i>
 								Overview </a>
 							</li>
 							<li class="lst" onclick="changeTab()">
 								<a href="/verify">
 								<i class="glyphicon glyphicon-flag"></i>
-								Verify Account </a>
+								Verify </a>
 							</li>
 							<li class="lst" onclick="changeTab()">
 								<a href="/resetpass">
@@ -67,7 +104,7 @@
 								Change Password </a>
 							</li>
 							<li class="lst" onclick="changeTab(); SignUpForNewsletter();">
-								<a href="#">
+								<a href="/">
 								<i class="glyphicon glyphicon-trash"></i>
 								Delete Account </a>
 							</li>
@@ -80,16 +117,21 @@
 				</div>
 			</div>
 			<div class="grid-container">
-                <% for(let j=0; j<prods.length; j++) { %>
+				<% for(let i=0;i<prods.length;i++) { %>
 				<div class="prod-container" id="p1">
 					<div>
-						<img src=<%= prods[j].image_url%>>
-                    </div>
-                    <%= prods[j].name %>
+						<img src="<%= prods[i].image_url[0].url%>">
+					</div>
 					<div class="price modify">
-						<h4>₹<%= prods[j].price %></h4>
-						<a href="/modify/<%= prods[j]._id %>">Modify Product</a>
-						<a href="/delete/<%= prods[j]._id %>">Delete Product</a>
+						<h4>₹ <%= prods[i].price%></h4>
+						<ul class="mod-prod">
+							<li><button onclick="location.href='/delete/<%= prods[i]._id %>'" class="btn-delete"><span class="glyphicon glyphicon-trash"></span>Delete</button></li>
+							<li><button onclick="location.href='/modify/<%= prods[i]._id %>'" class="btn-modify"><span class="glyphicon glyphicon-cog"></span>Modify Details</button></li>
+						</ul>
+					</div>
+					<div class="sub-div">
+						<h4 onclick="location.href='/product/<%= prods[i]._id%>'" class="prod-name"><%= prods[i].name %></h4>
+						<h4 class="prod-cate"><%= prods[i].category.charAt(0).toUpperCase() + prods[i].category.slice(1)%></h3>
 					</div>
 				</div>
 				<% } %>
@@ -109,4 +151,5 @@
 				</div>
 			</div>
 		</div>
-    <%- include('../includes/end.ejs') %>
+	</body>
+</html>

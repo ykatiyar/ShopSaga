@@ -1,5 +1,6 @@
 <%- include('includes/head.ejs') %>
 <link rel="stylesheet" href="/css/product.css">
+<link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
@@ -38,8 +39,10 @@
         <div class="box price_box">
             <section class="price_section">
                 <h1>₹ <%= product.price%></h1>
-                <h6><%= product.name%></h6>
-                <p><%= product.userId.college%></p>
+                <p><strong>College: </strong> <%= product.userId.college%></p>
+                <p> <strong>Category: </strong>   <%= product.category.charAt(0).toUpperCase() + product.category.slice(1)%></p>
+                <p> <strong>Condition: </strong>   <%= product.condition%></p>
+
                 <p class="date"><%= product.date_posted.getDate()%> <%= new Intl.DateTimeFormat('en-US', { month: 'long'}).format(product.date_posted)%></p>
             </section>
         </div>
@@ -61,7 +64,7 @@
                 <!-- <a href="#">Show number</a> -->
                 <br>
                 <span class="email"><%= product.userId.email %></span>
-                <a href="#">Show email</a>
+                
             </div>
             <div class="seller-info">
                 <p class="attr"> College</p>
@@ -74,8 +77,31 @@
         </div>
         
         <div class="box description_box">
-            <h1>Description</h1>
+            <h1><%= product.name%></h1>
+            <!-- <h4>Description</h4> -->
             <%= product.description%>
         </div>
+    </div>
+    <div class="rcmd_div">
+      <h1 id="recommend_header">Recommended Products</h1>
+      <div class="row recommend">
+        <% for(let j=0; j<Math.min(prods.length, 4); j++) { %>
+          <div class="col-sm">
+            <div class="product">
+              <div class="product-image">
+                  <img class="product-img-top" src=<%= prods[j].image_url[0].url%> >
+              </div>
+              <div class="product-details">
+                <p class="product-name"><%= prods[j].name %></p>
+                <p class="product-description"><%= prods[j].description.split(" ").splice(0,6).join(" ") %>...</p>
+              </div>
+              <div class="seller-details">
+                <p class="product-price">₹ <%= prods[j].price %></p>
+                <a class="btn btn-outline-info" href="/product/<%= prods[j]._id %>" role="button">View More</a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+      </div>
     </div>
 <%- include('includes/end.ejs') %>
