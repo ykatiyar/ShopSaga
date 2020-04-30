@@ -23,8 +23,7 @@ var imageFilter = function (req, file, cb) {
     cb(null, true);
 };
 var upload = multer({ storage: storage, fileFilter: imageFilter})
-// cfg.accountSid = process.env.TWILIO_ACCOUNT_SID;
-// cfg.authToken = process.env.TWILIO_AUTH_TOKEN;
+
 
 const store = new MongoDBStore({
     uri: process.env.MONGODB_URI,
@@ -33,7 +32,7 @@ const store = new MongoDBStore({
 
 app.set('view engine','ejs');
 app.set('views','views');
-app.use(upload.single('image'))
+app.use(upload.array('image'))
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 app.use(session({secret:process.env.MONGODB_SECRET, resave: false, saveUninitialized: false, store: store}));

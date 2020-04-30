@@ -1,5 +1,8 @@
 const Product = require('../models/product');
 const User = require('../models/user');
+const cloudinary = require('../middleware/cloudinary');
+const fs = require('fs');
+
 
 
 exports.getProductPage = (req, res) => {
@@ -122,40 +125,47 @@ exports.getAddProduct = (req, res) => {
     }
 }
 
-exports.postAddProduct = (req, res) => {
-    cloudinary.uploader.upload(req.file.path, function(result) {
-        const name = req.body.name;
-        const price = req.body.price;
-        const description = req.body.description;
-        const category = req.body.category;
-        const condition = req.body.condition;
-        const image_url = result.secure_url;
-        const date_posted = new Date();
-        const product = new Product({
-            name: name,
-            price: price,
-            description: description,
-            userId: req.user._id,
-            college: req.user.college,
-            condition: condition,
-            category: category,
-            image_url: image_url,
-            date_posted: date_posted
-        });     
-        product.save()
-            .then(result => {
-                User.update({ _id: req.user._id},
-                    { "$push": { "products": result._id }}
-                ).exec(function(err, pro) {
-                    if(err) throw err;
-                }); 
+exports.postAddProduct = async (req, res) => {
+    const uploader = async (path) => await cloudinary.uploads(path, 'Images');
+    const urls = []
+    const files = req.files;
+    for (const file of files) {
+        const { path } = file;
+        const newPath = await uploader(path)
+        urls.push(newPath)
+        fs.unlinkSync(path)
+    }
+    const name = req.body.name;
+    const price = req.body.price;
+    const description = req.body.description;
+    const category = req.body.category;
+    const condition = req.body.condition;
+    const image_url = urls;
+    const date_posted = new Date();
+    const product = new Product({
+        name: name,
+        price: price, 
+        description: description,
+        userId: req.user._id,
+        college: req.user.college,
+        condition: condition,
+        category: category,
+        image_url: image_url,
+        date_posted: date_posted
+    });     
+    product.save()
+        .then(result => {
+            User.update({ _id: req.user._id},
+                { "$push": { "products": result._id }}
+            ).exec(function(err, pro) {
+                if(err) throw err;
+            }); 
 
-                req.flash('other', 'Posted!!');
-                res.redirect('/');
-            })
-            .catch(err => {
-                console.log(err);
-            });
+            req.flash('other', 'Posted!!');
+            res.redirect('/');
+        })
+        .catch(err => {
+            console.log(err);
         });
 }
 
@@ -176,12 +186,6 @@ exports.getProduct = (req, res) => {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };  
-var cloudinary = require('cloudinary');
-cloudinary.config({ 
-  cloud_name: 'nuclrya', 
-  api_key: process.env.CLOUDINARY_API_KEY, 
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 
 exports.getUpdateProduct = (req, res) => {

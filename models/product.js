@@ -27,10 +27,11 @@ const productSchema = new Schema( {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    image_url: {
-        type: String,
-        required: true
-    },
+    image_url: [{
+        url:    {   type: String,
+                    required: true
+        }
+    }],
     college: {
         type: String,
         // required: true
