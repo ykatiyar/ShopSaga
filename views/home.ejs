@@ -51,7 +51,7 @@
                             <img class="product-img-top" src=<%= prods[j].image_url[0].url%> >
                         </div>
                         <div class="product-details">
-                          <p class="product-name"><%= prods[j].name %></p>
+                          <p class="product-name" onclick="location.href='/product/<%= prods[j]._id %>'"><%= prods[j].name %></p>
                           <p class="product-description"><%= prods[j].description.split(" ").splice(0,6).join(" ") %>...</p>
                         </div>
                         <div class="seller-details">

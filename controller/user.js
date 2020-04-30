@@ -137,6 +137,10 @@ exports.getUserProfile = (req, res, next) => {
     } else {
         successMessage = null;
     }
+    let myprofile = false;
+    if(req.user && req.user._id.toString() === req.params.id.toString()) {
+        myprofile = true;
+    }
     User.findById(req.params.id)
         .populate('products')
         .then(user => {
@@ -147,7 +151,8 @@ exports.getUserProfile = (req, res, next) => {
                     user: user,
                     prods: user.products,
                     errorMessage: errorMessage,
-                    successMessage: successMessage
+                    successMessage: successMessage,
+                    myprofile: myprofile
                 });
             }
             else {

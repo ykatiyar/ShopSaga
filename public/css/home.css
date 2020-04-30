@@ -47,6 +47,7 @@
   color: #555;
   margin: 0;
   font-size: 20px;
+  cursor: pointer;
 }
 .container-fluid .row .col-sm .product p[class='product-price']{
   font-size: 20px;

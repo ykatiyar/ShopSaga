@@ -357,3 +357,7 @@ div.container{
   transform: scale(1.2);
   padding-right: 10vw;
 }
+.btn-view {
+  margin-left: 150px;
+  width: 75px;
+}

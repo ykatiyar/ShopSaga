@@ -193,24 +193,39 @@ function escapeRegex(text) {
 
 
 exports.getUpdateProduct = (req, res) => {
-    const productID = req.params.id;
-    Product.findById(productID)
+    const prodID = req.params.id;
+    if(!req.user)  {
+        return res.redirect('/login')
+       } 
+    Product.findById(prodID)
         .then(product => {
-            if(product) {
-                res.render('update-product', {
-                    pageTitle:'Update Add',
-                    isLoggedIn: req.session.isLoggedIn,
-                    product: product
-                });
+            if(req.user._id.toString() !== product.userId.toString()){
+                return res.redirect('/')
             }
             else {
-                req.flash('error', 'No Product Found!');
-                res.redirect('/profile/'+req.user._id);
+                Product.findById(prodID)
+                    .then(product => {
+                        if(product) {
+                            res.render('update-product', {
+                                pageTitle:'Update Add',
+                                isLoggedIn: req.session.isLoggedIn,
+                                product: product
+                            });
+                        }
+                        else {
+                            req.flash('error', 'No Product Found!');
+                            res.redirect('/profile/'+req.user._id);
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
             }
         })
         .catch(err => {
             console.log(err);
         })
+    
 }
 
 exports.postUpdateProduct = (req, res) => {
@@ -218,16 +233,30 @@ exports.postUpdateProduct = (req, res) => {
     const updatedName = req.body.name;
     const updatedPrice = req.body.price;
     const updatedDescription = req.body.description;
+    if(!req.user)  {
+        return res.redirect('/login')
+       } 
     Product.findById(prodID)
         .then(product => {
-            product.name = updatedName;
-            product.price = updatedPrice;
-            product.description = updatedDescription;
-            return product.save();
-        })
-        .then(result => {
-            req.flash('success', 'Product updated sucessfully!!');
-            res.redirect('/profile/'+req.user._id);
+            if(req.user._id.toString() !==product.userId.toString()){
+                return res.redirect('/')
+            }
+            else {
+                Product.findById(prodID)
+                    .then(product => {
+                        product.name = updatedName;
+                        product.price = updatedPrice;
+                        product.description = updatedDescription;
+                        return product.save();
+                    })
+                    .then(result => {
+                        req.flash('success', 'Product updated sucessfully!!');
+                        res.redirect('/profile/'+req.user._id);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
         })
         .catch(err => {
             console.log(err);
@@ -235,13 +264,28 @@ exports.postUpdateProduct = (req, res) => {
 }
 
 exports.getDeleteProduct = (req, res) => {
+    if(!req.user)  {
+     return res.redirect('/login')
+    }    
     const prodID = req.params.id;
-    Product.findByIdAndRemove(prodID)
-        .then(() => {
-            req.flash('success', 'Product deleted sucessfully!!');
-            res.redirect('back');
+    Product.findById(prodID)
+        .then(product => {
+            if(req.user._id.toString()!==product.userId.toString()){
+                return res.redirect('/')
+            }
+            else {
+                Product.findByIdAndRemove(prodID)
+                    .then(() => {
+                        req.flash('success', 'Product deleted sucessfully!!');
+                        res.redirect('back');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
         })
         .catch(err => {
             console.log(err);
         })
+    
 }

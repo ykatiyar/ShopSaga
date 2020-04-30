@@ -76,7 +76,11 @@
 						<ul class="contacts-list">
 							<li>
 								<i class="fa fa-phone" aria-hidden="true"></i>
-								<span class="phone"><%= user.phone%></span>
+								<% if(myprofile) {%>
+									<span class="phone"><%= user.phone%></span>
+								<% } else {%>
+									<span class="phone">*** *** ****</span>
+								<% } %>
 							</li>
 							<li>
 								<i class="fa fa-envelope" aria-hidden="true"></i>
@@ -93,6 +97,7 @@
 								<i class="glyphicon glyphicon-home"></i>
 								Overview </a>
 							</li>
+							<% if(myprofile) {%>
 							<li class="lst" onclick="changeTab()">
 								<a href="/verify">
 								<i class="glyphicon glyphicon-flag"></i>
@@ -108,10 +113,14 @@
 								<i class="glyphicon glyphicon-trash"></i>
 								Delete Account </a>
 							</li>
+							<% } else { %>
+							<li class="lst" onclick="changeTab()">
+								<a href="/report">
+								<i class="glyphicon glyphicon-flag"></i>
+								Report User </a>
+							</li>
+							<% } %>
 						</ul>
-						
-						
-						
 					</div>
 					<!-- END MENU -->
 				</div>
@@ -125,8 +134,12 @@
 					<div class="price modify">
 						<h4>₹ <%= prods[i].price%></h4>
 						<ul class="mod-prod">
+							<% if(!myprofile) {%>
+							<li><button onclick="location.href='/product/<%= prods[i]._id %>'" class="btn-view"> View</button></li>
+							<% } else { %>
 							<li><button onclick="location.href='/delete/<%= prods[i]._id %>'" class="btn-delete"><span class="glyphicon glyphicon-trash"></span>Delete</button></li>
 							<li><button onclick="location.href='/modify/<%= prods[i]._id %>'" class="btn-modify"><span class="glyphicon glyphicon-cog"></span>Modify Details</button></li>
+							<% } %>
 						</ul>
 					</div>
 					<div class="sub-div">
