@@ -45,16 +45,8 @@
           </div>
         </div>
         <div class="form-group form-element">
-          <label for="exampleFormControlTextarea1">Short Description</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" ></textarea>
-        </div>
-        <div class="form-group form-element">
           <label for="exampleFormControlTextarea1">Description</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" name="description" rows="4" ></textarea>
-        </div>
-        <div class="custom-file form-element form-separate">
-          <input type="file" class="custom-file-input" id="customFile" >
-          <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <div class="custom-control custom-switch form-separate">
           <input type="checkbox" class="custom-control-input" id="customSwitch1">
@@ -64,4 +56,16 @@
       </form>
     </div>  
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+    $(function(){
+       $("button[type = 'submit']").click(function(e){
+          var $fileUpload = $("input[type='file']");
+          if (parseInt($fileUpload.get(0).files.length) > 5){
+             alert("You are only allowed to upload a maximum of 5 files");
+             e.preventDefault();
+          }
+       });
+    });
+ </script>
 <%- include('includes/end.ejs') %>

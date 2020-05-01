@@ -7,7 +7,7 @@
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<!-- <script src="userpage.js"></script> -->
+	<script src="/script/profile.js"></script>
 	<link rel="stylesheet" href="/css/auth/profile.css" >
 </head>
 <body>
@@ -26,7 +26,7 @@
 				<button type="button" onclick="location.href='/post'" class="btn btn-default navbar-btn btn-sell"><span class="glyphicon glyphicon-camera"></span>Sell with Us!</button>
 			  </li>
 			  <li class="nav-item">
-				<button type="button" onclick="location.href='/profile/<%= user._id %>'" class="btn btn-default navbar-btn">Profile</button>
+				<button type="button" onclick="location.href='/profile/<%= user_id %>'" class="btn btn-default navbar-btn">Profile</button>
 			  </li>
 			  <li class="nav-item">
 				<button type="button" onclick="location.href='/logout'" class="btn btn-default navbar-btn">Logout</button>
@@ -143,7 +143,7 @@
 						</ul>
 					</div>
 					<div class="sub-div">
-						<h4 onclick="location.href='/product/<%= prods[i]._id%>'" class="prod-name"><%= prods[i].name %></h4>
+						<h4 onclick="location.href='/product/<%= prods[i]._id%>'" class="prod-name"><%= prods[i].name.split(" ").splice(0,4).join(" ") %></h4>
 						<h4 class="prod-cate"><%= prods[i].category.charAt(0).toUpperCase() + prods[i].category.slice(1)%></h3>
 					</div>
 				</div>

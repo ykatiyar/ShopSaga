@@ -35,7 +35,7 @@
                 <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Filter</label>
                 <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" name="college">
                   <option selected>Select Colleges...</option>
-                  <% for(var i=0;i<colleges.length;i++) { %>
+                  <% for(let i=0;i<colleges.length;i++) { %>
                     <option value=<%= colleges[i] %> > <%=colleges[i]%> </option>
                   <% } %>
                   </select>

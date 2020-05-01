@@ -3,11 +3,10 @@ const User = require('../models/user');
 const cloudinary = require('../middleware/cloudinary');
 const fs = require('fs');
 
-
+var colleges=[];
 
 exports.getProductPage = (req, res) => {
     
-    var colleges=[];
     Product.find().distinct('college', function(error, col) {
         colleges = col
     });
