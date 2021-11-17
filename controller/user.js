@@ -4,7 +4,6 @@ const sgMail = require('@sendgrid/mail');
 const crypto = require('crypto');
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-
 exports.getUserLogin = (req, res) => {
     let errorMessage = req.flash('error');
     if(errorMessage.length > 0) {
